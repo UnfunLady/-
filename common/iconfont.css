@@ -1,0 +1,64 @@
+@font-face {
+	font-family: 'iconfont';
+	/* Project id 3693201 */
+	src: url('//at.alicdn.com/t/c/font_3693201_rnmda8b90sk.woff2?t=1665299115248') format('woff2'),
+		url('//at.alicdn.com/t/c/font_3693201_rnmda8b90sk.woff?t=1665299115248') format('woff'),
+		url('//at.alicdn.com/t/c/font_3693201_rnmda8b90sk.ttf?t=1665299115248') format('truetype');
+}
+
+.iconfont {
+	font-family: "iconfont" !important;
+	font-size: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+.icon-IconsLogo:before {
+	content: "\e74c";
+}
+
+.icon-faxian:before {
+	content: "\e655";
+}
+
+.icon-faxian-active:before {
+	content: "\e656";
+}
+
+.icon-video:before {
+	content: "\e631";
+}
+
+.icon-video-active:before {
+	content: "\e632";
+}
+
+.icon-me:before {
+	content: "\e600";
+}
+
+.icon-me-active:before {
+	content: "\e629";
+}
+
+.icon-home:before {
+	content: "\e625";
+}
+
+.icon-active-home:before {
+	content: "\e628";
+}
+
+.icon-fangdajing:before {
+	content: "\e627";
+}
+
+.icon-active-home:before {
+	content: "\e628";
+}
+
+.icon-fangdajing:before {
+	content: "\e627";
+}
