@@ -4,10 +4,12 @@
 			<div class="swiperImage">
 				<!-- <u-swiper previousMargin="40" nextMargin="40" :autoplay="false" height="350" circular width="750rpx"
 					class="swiperList" :list="swiperList" /> -->
-				<swiper class="swiper" circular previous-margin="40rpx" next-margin="40rpx" autoplay="true">
-					<swiper-item v-for="item in swiperList" :key="item.postid">
-						<view class="swiper-item uni-bg-red">
-							<u--image :showLoading="true" width="700rpx" shape="square" height="300rpx"
+				<swiper class="swiper" @change="changeSwiper" circular previous-margin="40rpx" next-margin="40rpx"
+					:autoplay="false">
+					<swiper-item :class="activeIndex===index?'active':''" v-for="(item,index) in swiperList"
+						:key="item.postid">
+						<view class="swiper-item ">
+							<u--image :showLoading="true" width="100%" shape="square" height="300rpx"
 								:src="item.imgsrc">
 							</u--image>
 						</view>
@@ -15,7 +17,7 @@
 							<view class="infoText">
 								<div class="explainIcon">
 									<span><img src="../../../static/images/hotPoint.png" width="20rpx" alt=""></span>
-									<text style="margin-left: 10rpx;">{{item.TAG?item.TAG:"热点精选"}}</text>
+									<text style="margin-left: 10rpx;">{{item.TAG?item.TAG:"今日要闻"}}</text>
 									<div class="moreAction">
 										<text style="margin-right: 5rpx;margin-top: -10rpx;">更多</text>
 										<span><img src="../../../static/images/right.png" width="16rpx" alt=""></span>
@@ -53,7 +55,7 @@
 		props: ['swiperList'],
 		data() {
 			return {
-
+				activeIndex: 0
 			}
 		},
 		mounted() {
@@ -61,10 +63,13 @@
 		},
 		methods: {
 			getTimeGap(item) {
-				const gapTime = new Date(item.mtime).getTime() - new Date(item.lmodify).getTime();
-				if (gapTime < 0) return "刚刚"
-				return Math.floor(gapTime / 1000 / 60 / 60) < 1 ? 1 + "小时前" : Math.floor(gapTime / 1000 / 60 / 60) + "小时前";
+				const gapTime = new Date(item.mtime).getTime() - new Date().getTime();
+				return Math.floor(Math.abs(gapTime) / 1000 / 60 / 60) < 1 ? 1 + "小时前" : Math.floor(Math.abs(gapTime) /
+					1000 / 60 / 60) + "小时前";
 			},
+			changeSwiper(e) {
+				this.activeIndex = e.detail.current
+			}
 		},
 
 	}
@@ -72,9 +77,11 @@
 
 <style scoped lang="scss">
 	.swiperContainer {
-		margin-top: 25rpx;
+		border-radius: 10rpx;
+		padding-top: 15rpx;
 		padding-bottom: 15rpx;
 		border-bottom: 1px solid #ececec;
+
 	}
 
 	.swiperContent {
@@ -88,8 +95,10 @@
 
 
 			.swiper-item {
-				padding-left: 10rpx;
 
+				width: 100%;
+				display: inline-block;
+				padding: 0 10rpx 0 10rpx;
 
 				img {
 					border-radius: 20rpx !important;
@@ -160,6 +169,11 @@
 				}
 			}
 		}
+
+	}
+
+	.active {
+		position: absolute;
 
 	}
 </style>

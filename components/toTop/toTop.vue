@@ -3,20 +3,20 @@
 		<view class="top">
 			<view class="newsInfo" v-for="item in topList" :key="item.id">
 				<view class="text">
-					<view class="isTop" v-if="item.isSpecial=='true'?true:false">
-						专题
+					<view class="isTop" v-if="item.special?true:false">
+						<text class="text">专题</text>
 					</view>
-					<u--text :lines="item.isSpecial=='true'?1:2" size="30" :text="item.title"></u--text>
+					<u--text :lines="item.special?1:2" size="30" :text="item.title"></u--text>
 				</view>
 				<view class="bottomContent">
 					<view class="icon textStyle">
-						<text>置顶</text>
+						<text>{{item.label}}</text>
 					</view>
 					<view class="whichSend textStyle">
-						<text>{{item.whichSend}}</text>
+						<text>{{item.source}}</text>
 					</view>
 					<view class="beforeTime textStyle">
-						{{item.beforeTime}}
+						{{getTimeGap(item)}}
 					</view>
 				</view>
 			</view>
@@ -27,33 +27,23 @@
 
 <script>
 	export default {
+		async mounted() {
+			const res = await this.$API.toutiaoApi.getTopNewsInfo();
+			this.topList = res.data.slice(0, 3);
 
+		},
 		data() {
 			return {
-				topList: [{
-						id: 0,
-						title: "马斯克就台海议题发言，外交部给予积极评价，我大使也表示感谢",
-						whichSend: "外交部",
-						beforeTime: "2小时前",
-						isSpecial: "false"
-					},
-					{
-						id: 1,
-						title: "一中学收取学生20元“树叶费”给植被保暖 当地教育局回应",
-						whichSend: "焦点视频",
-						beforeTime: "1小时前",
-						isSpecial: "true"
-					},
-					{
-						id: 2,
-						title: "福奇警告“新变异毒株”！",
-						whichSend: "今日头条",
-						beforeTime: "12小时前",
-						isSpecial: "false"
-					},
-				]
+				topList: []
 			};
 		},
+		methods: {
+			getTimeGap(item) {
+				const gapTime = new Date(item.datetime).getTime() - new Date().getTime();
+				return Math.floor(Math.abs(gapTime) / 1000 / 60 / 60) < 1 ? 1 + "小时前" : Math.floor(Math.abs(gapTime) /
+					1000 / 60 / 60) + "小时前";
+			},
+		}
 
 	}
 </script>
@@ -81,13 +71,17 @@
 				flex-wrap: nowrap;
 
 				.isTop {
-					width: 66rpx;
 					font-size: 22rpx;
+					margin-right: 15rpx;
 					background-color: #3c9cff;
 					color: white;
 					text-align: center;
+
 					border-radius: 4rpx;
 
+					.text {
+						transform: scale(.8);
+					}
 				}
 			}
 

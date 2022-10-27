@@ -24,6 +24,31 @@ module.exports = {
 					'^/bb': ''
 				}
 			},
+			'/cc': {
+				target: 'http://c.3g.163.com',
+				changeOrigin: true,
+				ws: true,
+				pathRewrite: {
+					'^/cc': ''
+				}
+			},
+			'/tx': {
+				target: 'https://i.news.qq.com',
+				changeOrigin: true,
+				ws: true,
+				pathRewrite: {
+					'^/tx': ''
+				}
+			},
+			'/tt': {
+				target: 'https://m.toutiao.com',
+				changeOrigin: true,
+				ws: true,
+				pathRewrite: {
+					'^/tt': ''
+				}
+			},
+
 		},
 	}
 }

@@ -86,9 +86,10 @@
 	.content {
 		display: flex;
 		flex-direction: column;
-		padding: 30rpx 30rpx 0 30rpx;
+
 
 		.topInfo {
+			padding: 0rpx 10rpx 0 10rpx;
 			display: flex;
 			align-items: center;
 			height: 60rpx;
@@ -102,12 +103,15 @@
 
 			.rightText {
 				font-size: 24rpx;
+				transform: scale(.9);
 				color: #b1b1b1;
-				margin-left: 20rpx;
+				margin-left: 10rpx;
+				margin-top: 10rpx;
 			}
 		}
 
 		.mainInfo {
+			padding: 10rpx 10rpx 0 10rpx;
 
 			.oneText,
 			.twoText,

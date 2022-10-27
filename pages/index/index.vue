@@ -16,7 +16,7 @@
 						refresher-enabled="false" :refresher-triggered="isFlash" refresher-background="#f5f5f5"
 						scroll-y="true" :style="'height:'+clientHeight+'px;'">
 						<view class="mainView">
-							<view style="margin: 20rpx;" v-if="item.id===0&&activeIndex===0">
+							<view v-if="item.id===0&&activeIndex===0">
 								<HotNews />
 							</view>
 							<view v-if="item.id===1&&activeIndex===1">
@@ -28,6 +28,10 @@
 							<view v-if="item.id===3&&activeIndex===3">
 								<DefenseEvil />
 							</view>
+							<view v-if="item.id===4&&activeIndex===4">
+								<FunNews />
+							</view>
+
 							<view class="bottomInfo">
 								<u-loading-icon v-if="isLoading" mode="semicircle"></u-loading-icon>
 								<u-icon v-else name="hourglass-half-fill" size="40"></u-icon>
@@ -49,6 +53,7 @@
 	import HotPoiont from '@/pages/hotPoint/hotPoint.vue'
 	import GuangZhou from '@/pages/locationNews/locationNews.vue'
 	import DefenseEvil from '@/pages/defenseEvil/defenseEvil.vue'
+	import FunNews from '@/pages/funNews/funNews.vue'
 	import {
 		eventBus
 	} from '../../common/utils/utils.js'
@@ -60,7 +65,8 @@
 			HotNews,
 			HotPoiont,
 			GuangZhou,
-			DefenseEvil
+			DefenseEvil,
+			FunNews
 		},
 		data() {
 			return {
@@ -89,7 +95,7 @@
 					},
 					{
 						id: 4,
-						title: "国际",
+						title: "娱乐",
 					},
 					{
 						id: 5,
@@ -184,6 +190,14 @@
 						this.sizeCount += 20;
 						this.isLoading = true;
 						eventBus.$emit('reachBottomLocalEvil', this.sizeCount)
+						setTimeout(() => {
+							this.isLoading = false;
+						}, 2000)
+						break;
+					case 4:
+						this.sizeCount += 20;
+						this.isLoading = true;
+						eventBus.$emit('reachBottomLocalFun', this.sizeCount)
 						setTimeout(() => {
 							this.isLoading = false;
 						}, 2000)

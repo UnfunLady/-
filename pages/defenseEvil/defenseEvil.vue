@@ -1,6 +1,12 @@
 <template>
 	<view>
 		<view class="content">
+			<view>
+				<u-notice-bar speed="80" bgColor="#afc6df69" fontSize="25" color="white"
+					style="position: fixed;z-index: 999;top: 0;right: 0;left: 0; border-radius: 5rpx;"
+					:text="evilTextInfo" mode="closable">
+				</u-notice-bar>
+			</view>
 			<view class="topInfo">
 				<view class="topImg">
 					<view class="mask">
@@ -34,10 +40,17 @@
 											<text>{{evil.mainLabel}}</text>
 										</view>
 										<view class="viewNumber">
-											<text>{{evil.mainNum}}</text>
+											<u-count-to color="rgb(120, 6, 31)" :start-val="30" :end-val="evil.mainNum"
+												:duration="3000" :useEasing="true"></u-count-to>
 										</view>
 										<view class="subNum">
-											昨日: <text style="color:red;margin-left: 8rpx;">{{evil.subNum}}</text>
+											昨日:
+											<span style="color:red;margin-left: 8rpx;">
+												<span style="color: red;">{{evil.subNum>0?'+':null}}</span>
+												<u-count-to color="red" :start-val="30" :end-val="evil.subNum"
+													:duration="3000" :useEasing="true"></u-count-to>
+											</span>
+
 										</view>
 									</view>
 								</view>
@@ -69,6 +82,7 @@
 		data() {
 			return {
 				topImgInfo: {},
+				evilTextInfo: "戴口罩、勤洗手，测体温、勤消毒，少聚集、勤通风  早发现、早报告、早隔离、早治疗，对自己负责，对他人负责",
 				evilInfo: [],
 				cardList: [],
 				actionsList: [{
@@ -114,7 +128,7 @@
 
 <style scoped lang="scss">
 	.content {
-		padding: 20rpx;
+
 
 		.topInfo {
 			display: flex;

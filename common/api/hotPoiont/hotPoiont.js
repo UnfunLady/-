@@ -1,7 +1,7 @@
-import shttp from '../../http/shttp.js'
 import http from '../../http/http.js'
 const getHotPointList = () => {
-	return shttp.request({
+	return http.request({
+		baseUrl: '/aa',
 		url: "/search/api/v1/pc-wap/rolling-word",
 		method: "get"
 	})

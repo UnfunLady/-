@@ -67,7 +67,7 @@
 	.mask {
 		position: absolute;
 		width: 100%;
-		height: 480rpx;
+		height: 485rpx;
 		// background: linear-gradient(to right, #afc6df, #acacac);
 		background-color: #afc6df;
 

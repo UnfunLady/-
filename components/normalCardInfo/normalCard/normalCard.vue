@@ -35,7 +35,6 @@
 									...
 								</view>
 							</view>
-
 							<view class="playIcon">
 								<u--image width="60rpx" height="60rpx" :showLoading="true"
 									src="../../static/images/play.png">
@@ -44,15 +43,13 @@
 							<div class="videoTime">
 								{{getVideoTime(item.length)}}
 							</div>
-
 						</view>
 					</view>
 				</view>
 			</view>
 			<div v-else class="mainInfo">
-				<div class="leftRightBox">
+				<div class="leftRightBox" :style="item.imgextra?'flex-direction:column':null">
 					<div class="leftBox">
-
 						<div class="explain" style="margin: 0  0 15rpx 0;">
 							<view class="special" v-if="item.specialID&&item.specialID!==''">
 								专题
@@ -63,12 +60,24 @@
 						</div>
 					</div>
 					<div class="rightBox" v-if="item.imgsrc||item.picInfo[0]">
-						<u--image width="220rpx" height="173rpx" radius="6"
-							:src="item.imgsrc?item.imgsrc:(item.picInfo[0] ? item.picInfo[0].url : null)">
-							<template v-slot:loading>
-								<u-loading-icon color="#90c7ff"></u-loading-icon>
-							</template>
-						</u--image>
+						<view class="imgs">
+							<view class="extraImg" v-if="item.imgextra" style="display: flex;">
+								<u--image v-for="exImg in item.imgextra" class="rightImg" width="234rpx" height="173rpx"
+									radius="6" :src="exImg.imgsrc">
+									<template v-slot:loading>
+										<u-loading-icon color="#90c7ff"></u-loading-icon>
+									</template>
+								</u--image>
+							</view>
+							<view  style=" flex: 1;" class="">
+								<u--image class="rightImg" width="234rpx" height="173rpx" radius="6"
+									:src="item.imgsrc?item.imgsrc:(item.picInfo[0] ? item.picInfo[0].url : null)">
+									<template v-slot:loading>
+										<u-loading-icon color="#90c7ff"></u-loading-icon>
+									</template>
+								</u--image>
+							</view>
+						</view>
 					</div>
 				</div>
 				<div class="bottomBox">
@@ -210,7 +219,17 @@
 				.rightBox {
 					display: flex;
 					align-items: center;
-					justify-content: center;
+					justify-content: space-between;
+					
+					.imgs {
+						display: flex;
+						width: 100%;
+						flex-wrap: nowrap;
+
+						.rightImg {
+							margin: 5rpx;
+						}
+					}
 				}
 			}
 
