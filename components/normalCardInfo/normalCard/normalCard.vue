@@ -5,6 +5,7 @@
 				<view class="videoSourceInfo">
 					<view class="topInfo">
 						<view class="avatar">
+
 							<u--image :showLoading="true" shape="circle" :src="item.videoTopic.topic_icons"
 								width="60rpx" height="60rpx">
 							</u--image>
@@ -25,6 +26,7 @@
 					</view>
 					<view class="videoInfo">
 						<view class="videoCoverImage">
+
 							<img v-lazy="item.videoinfo.cover==''?item.videoinfo.firstFrameImg:item.videoinfo.cover"
 								alt="">
 							<view class="repryText">
@@ -48,18 +50,19 @@
 				</view>
 			</view>
 			<div v-else class="mainInfo">
-				<div class="leftRightBox" :style="item.imgextra?'flex-direction:column':null">
+				<div class="leftRightBox" :style="(item.imgextra||item.imgsrc3gtype=='3')?'flex-direction:column':null">
 					<div class="leftBox">
 						<div class="explain" style="margin: 0  0 15rpx 0;">
-							<view class="special" v-if="item.specialID&&item.specialID!==''">
-								专题
+							<view class="special" v-if="item.specialID||item.imgextra||item.skipType">
+								{{item.specialID?'专题':(item.skipType=='live'?'直播':(item.skipType=='video')?'视频':(item.skipType=='photoset')?'图集':item.imgextra.length>0?'图集':null)}}
 							</view>
 							<text class="explainText">
 								<text>{{item.title}}</text>
 							</text>
 						</div>
 					</div>
-					<div class="rightBox" v-if="item.imgsrc||item.picInfo[0]">
+
+					<div class="rightBox" v-if="item.imgsrc||item.picInfo">
 						<view class="imgs">
 							<view class="extraImg" v-if="item.imgextra" style="display: flex;">
 								<u--image v-for="exImg in item.imgextra" class="rightImg" width="234rpx" height="173rpx"
@@ -69,7 +72,16 @@
 									</template>
 								</u--image>
 							</view>
-							<view  style=" flex: 1;" class="">
+
+							<view v-if="item.imgsrc3gtype=='3'" style="width: 100%;">
+								<u--image class="rightImg" width="100%" height="335rpx" radius="6"
+									:src="item.imgsrc?item.imgsrc:(item.picInfo[0] ? item.picInfo[0].url : null)">
+									<template v-slot:loading>
+										<u-loading-icon color="#90c7ff"></u-loading-icon>
+									</template>
+								</u--image>
+							</view>
+							<view style=" flex: 1;" class="" v-else>
 								<u--image class="rightImg" width="234rpx" height="173rpx" radius="6"
 									:src="item.imgsrc?item.imgsrc:(item.picInfo[0] ? item.picInfo[0].url : null)">
 									<template v-slot:loading>
@@ -82,6 +94,7 @@
 				</div>
 				<div class="bottomBox">
 					<div class="which">
+						<!-- <text v-if="item.modelmode" style="color:red;margin: 0 10rpx 0rpx 0;">图集</text> -->
 						<text>{{item.source}}</text>
 					</div>
 					<div class="repry">
@@ -115,18 +128,19 @@
 			getTimeGap(item) {
 				if (item.lmodify) {
 					const gapTime = new Date(item.lmodify).getTime() - new Date().getTime();
-
-					return Math.floor(Math.abs(gapTime) / 1000 / 60 / 60) < 1 ? 1 + "小时前" : Math.floor(Math.abs(gapTime) /
-							1000 /
-							60 / 60) +
-						"小时前";
+					return Math.floor(Math.abs(gapTime) / 1000 / 60 / 60) < 1 ? 1 + "小时前" : (Math.floor(Math.abs(
+							gapTime) / 1000 / 60 / 60) > 24 ? '大于24小时' : Math.floor(Math.abs(
+								gapTime) / 1000 / 60 /
+							60) +
+						"小时前");
 				} else {
 					if (item.ptime) {
 						const gapTime = new Date(item.ptime).getTime() - new Date().getTime();
-						return Math.floor(Math.abs(gapTime) / 1000 / 60 / 60) < 1 ? 1 + "小时前" : Math.floor(Math.abs(
+						return Math.floor(Math.abs(gapTime) / 1000 / 60 / 60) < 1 ? 1 + "小时前" : (Math.floor(Math.abs(
+								gapTime) / 1000 / 60 / 60) > 24 ? '大于24小时' : Math.floor(Math.abs(
 									gapTime) / 1000 / 60 /
 								60) +
-							"小时前";
+							"小时前");
 					}
 				}
 			},
@@ -192,7 +206,7 @@
 
 						.special {
 							text-align: center;
-							width: 80rpx;
+							min-width: 60rpx;
 							height: 35rpx;
 							font-size: 22rpx;
 							transform: scale(.9);
@@ -220,7 +234,9 @@
 					display: flex;
 					align-items: center;
 					justify-content: space-between;
-					
+
+
+
 					.imgs {
 						display: flex;
 						width: 100%;
@@ -228,6 +244,7 @@
 
 						.rightImg {
 							margin: 5rpx;
+
 						}
 					}
 				}
@@ -265,6 +282,8 @@
 				align-items: center;
 				display: flex;
 
+				.avatar {}
+
 				.nickname {
 					margin-left: 20rpx;
 					font-size: 28rpx;
@@ -277,13 +296,16 @@
 			}
 
 			.videoCoverImage {
+
 				display: flex;
 				flex-direction: column;
 				position: relative;
+				opacity: .9;
 
 				img: {
 					min-width: 100rpx;
 					min-height: 100rpx;
+
 				}
 
 				img:first-child {
@@ -297,9 +319,9 @@
 
 			.playIcon {
 				position: absolute;
-				top: 50%;
+				top: 45%;
 				left: 50%;
-				transform: translate(-50%, -50%);
+				transform: translate(-50%, -45%);
 				margin: auto;
 			}
 
@@ -308,7 +330,7 @@
 				position: absolute;
 				text-align: center;
 				overflow: hidden;
-				top: 85%;
+				top: 80%;
 				left: 99%;
 				transform: translate(-85%, -99%);
 				z-index: 9999;

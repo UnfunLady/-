@@ -17,7 +17,7 @@
 			</swiper-item>
 		</swiper> -->
 		<view class="swiperContainer">
-			<u-swiper :list="swiperList" width="100%" showTitle height="350" keyName="imgsrc" indicatorMode="line"
+			<u-swiper :list="swiperList" width="100%" showTitle height="350" :keyName="'imgsrc'" indicatorMode="line"
 				:autoplay="true" circular></u-swiper>
 		</view>
 
@@ -27,6 +27,10 @@
 <script>
 	export default {
 		props: {
+			isImgsrc: {
+				type: Boolean,
+				default: true
+			},
 			swiperList: {
 				type: Array,
 			},

@@ -1,9 +1,13 @@
 <template>
-	<view>
+	<view class="container">
 		<view class="content">
 			<Swiper :swiperList="swiperList" />
 		</view>
-		<u-divider text="分割线" :dot="true"></u-divider>
+
+		<ActionList :actionsList="actionsList" />
+		<view class="" style="width: 100%;">
+			<u-divider text="分割线" :dot="true"></u-divider>
+		</view>
 		<view class="cardInfo">
 			<NormalCard :cardList="cardList.slice(5)" />
 		</view>
@@ -13,6 +17,7 @@
 <script>
 	import Swiper from '@/components/defaultSwiper/defaultSwiper.vue'
 	import NormalCard from '@/components/normalCardInfo/normalCard/normalCard.vue'
+	import ActionList from '@/components/actions/actions.vue'
 	import {
 		eventBus
 	} from '../../common/utils/utils.js'
@@ -20,13 +25,15 @@
 	export default {
 		components: {
 			Swiper,
-			NormalCard
+			NormalCard,
+			ActionList
 		},
 		mounted() {
-			this.getWarNews(0)
+			this.getFunNews(0)
 			eventBus.$on("reachBottomLocalFun", (num) => {
-				this.getWarNews(num);
+				this.getFunNews(num);
 			})
+
 		},
 		destroyed() {
 			eventBus.$off('reachBottomLocalFun');
@@ -34,21 +41,46 @@
 		data() {
 			return {
 				swiperList: [],
-				cardList: []
+				cardList: [],
+				actionsList: [{
+						id: 0,
+						title: '影视一线',
+						imgsrc: '../../static/images/movie.svg'
+					},
+					{
+						id: 1,
+						title: '热播剧场',
+						imgsrc: '../../static/images/tvshow.svg'
+					},
+					{
+						id: 2,
+						title: '音乐专辑',
+						imgsrc: '../../static/images/music.svg'
+					},
+				]
 			}
 		},
 		methods: {
-			async getWarNews(num = 0) {
+
+			async getFunNews(num = 0) {
 				const res = await this.$API.funApi.getFunNewsInfo(num);
-				this.swiperList = res.T1348648517839.slice(0, 5);
+
 				this.cardList = [...this.cardList, ...res.T1348648517839];
+				this.swiperList = this.cardList.slice(0, 5);
 			}
 		}
 	}
 </script>
 
 <style scoped lang="scss">
-	.content {
-	
+	.container {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		.content {
+			width: 100%;
+		}
 	}
 </style>

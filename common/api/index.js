@@ -5,6 +5,10 @@ import defenseEvil from './defenseEvil/defenseEvil.js'
 import tencentNewsApi from './tencentNewsApi/tencentNewsApi.js'
 import funApi from './funApi/funApi.js'
 import toutiaoApi from './toutiaoApi/toutiaoApi.js'
+import sportApi from './sportApi/sportApi.js'
+import financeApi from './financeApi/financeApi.js'
+import warApi from './warApi/warApi.js'
+import searchApi from './searchApi/searchApi.js'
 export {
 	index,
 	hotPoint,
@@ -12,5 +16,9 @@ export {
 	defenseEvil,
 	funApi,
 	tencentNewsApi,
-	toutiaoApi
+	toutiaoApi,
+	sportApi,
+	financeApi,
+	warApi,
+	searchApi
 }

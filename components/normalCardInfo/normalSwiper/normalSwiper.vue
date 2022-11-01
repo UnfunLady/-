@@ -64,8 +64,11 @@
 		methods: {
 			getTimeGap(item) {
 				const gapTime = new Date(item.mtime).getTime() - new Date().getTime();
-				return Math.floor(Math.abs(gapTime) / 1000 / 60 / 60) < 1 ? 1 + "小时前" : Math.floor(Math.abs(gapTime) /
-					1000 / 60 / 60) + "小时前";
+				return Math.floor(Math.abs(gapTime) / 1000 / 60 / 60) < 1 ? 1 + "小时前" : (Math.floor(Math.abs(
+						gapTime) / 1000 / 60 / 60) > 24 ? '大于24小时' : Math.floor(Math.abs(
+							gapTime) / 1000 / 60 /
+						60) +
+					"小时前");
 			},
 			changeSwiper(e) {
 				this.activeIndex = e.detail.current

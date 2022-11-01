@@ -57,8 +57,8 @@
 				flag = setTimeout(function() {
 					that.getPageInfo(size);
 				}, 1000)
+			},
 
-			}
 		}
 	}
 </script>

@@ -1,5 +1,6 @@
 <template>
-	<view class="content">
+	<view class="container">
+		<BackTop :backTop="backTop" :isShowBackTop="isShowBackTop" />
 		<Navbar :hotKeyList="hotKeyList" />
 		<view class="header">
 			<scroll-view scroll-x="true" class="scrollX" :scroll-into-view="tabCurrent">
@@ -12,9 +13,9 @@
 			<swiper class="swiper-box-list" :style="'height:'+clientHeight+'px;'" :current="activeIndex"
 				@change.stop="swiperChange">
 				<swiper-item class="swiper-topic-list" v-for="item in topBarList" :key="item.id">
-					<scroll-view @scrolltolower="reachBottom" @refresherrefresh.stop="onRefresh"
-						refresher-enabled="false" :refresher-triggered="isFlash" refresher-background="#f5f5f5"
-						scroll-y="true" :style="'height:'+clientHeight+'px;'">
+					<scroll-view :scroll-top="scrollTop" @scroll="scroll" @scrolltolower="reachBottom"
+						@refresherrefresh.stop="onRefresh" refresher-enabled="false" :refresher-triggered="isFlash"
+						refresher-background="#f5f5f5" scroll-y="true" :style="'height:'+clientHeight+'px;'">
 						<view class="mainView">
 							<view v-if="item.id===0&&activeIndex===0">
 								<HotNews />
@@ -31,12 +32,16 @@
 							<view v-if="item.id===4&&activeIndex===4">
 								<FunNews />
 							</view>
-
-							<view class="bottomInfo">
-								<u-loading-icon v-if="isLoading" mode="semicircle"></u-loading-icon>
-								<u-icon v-else name="hourglass-half-fill" size="40"></u-icon>
-								<text style="margin-left: 20rpx;">{{isLoading?"正在加载中":"滑动加载更多"}}</text>
+							<view v-if="item.id===5&&activeIndex===5">
+								<Sport />
 							</view>
+							<view v-if="item.id===6&&activeIndex===6">
+								<Finance />
+							</view>
+							<view v-if="item.id===7&&activeIndex===7">
+								<WarNews />
+							</view>
+							<BottomIcon :isLoading="isLoading" v-if="(item.id!==6&&item.id!==7)" />
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -48,12 +53,17 @@
 
 <script>
 	import Navbar from '@/components/navbar/navbar.vue'
+	import BottomIcon from '@/components/bottomIcon/bottomIcon.vue'
 	import Tabbar from '@/components/tabbar/tabbar.vue'
 	import HotNews from '@/pages/hotNews/hotNews.vue'
 	import HotPoiont from '@/pages/hotPoint/hotPoint.vue'
 	import GuangZhou from '@/pages/locationNews/locationNews.vue'
 	import DefenseEvil from '@/pages/defenseEvil/defenseEvil.vue'
 	import FunNews from '@/pages/funNews/funNews.vue'
+	import Sport from '@/pages/sport/sport.vue'
+	import Finance from '@/pages/finance/finance.vue'
+	import WarNews from '@/pages/warNews/warNews.vue'
+	import BackTop from '@/components/backTop/backTop.vue'
 	import {
 		eventBus
 	} from '../../common/utils/utils.js'
@@ -61,12 +71,17 @@
 	export default {
 		components: {
 			Navbar,
+			BackTop,
 			Tabbar,
 			HotNews,
 			HotPoiont,
 			GuangZhou,
 			DefenseEvil,
-			FunNews
+			FunNews,
+			Sport,
+			Finance,
+			BottomIcon,
+			WarNews
 		},
 		data() {
 			return {
@@ -78,6 +93,9 @@
 				clientHeight: 0,
 				// 关键词
 				hotKeyList: [],
+				// 返回顶部
+				scrollTop: 0,
+				isShowBackTop: false,
 				topBarList: [{
 						id: 0,
 						title: "要闻",
@@ -99,17 +117,16 @@
 					},
 					{
 						id: 5,
-						title: "教育",
-					},
-					{
-						id: 6,
 						title: "体育",
 					},
 					{
-						id: 7,
+						id: 6,
 						title: "财经",
 					},
-
+					{
+						id: 7,
+						title: "军事",
+					},
 				],
 
 			}
@@ -127,11 +144,24 @@
 		onLoad() {
 			this._flashing = false;
 			this.sizeCount = 0;
+
 		},
 		mounted() {
 			this.getHotPoint();
+
 		},
 		methods: {
+			scroll(e) {
+
+				this.scrollTop = e.detail.scrollTop
+				if (this.scrollTop > 1200) {
+					this.isShowBackTop = true;
+				}
+			},
+			backTop() {
+				this.scrollTop = 0;
+				this.isShowBackTop = false;
+			},
 			// 热点信息关键字
 			async getHotPoint() {
 				const res = await this.$API.hotPoint.getHotPointList();
@@ -163,53 +193,39 @@
 			reachBottom: _.throttle(function() {
 				switch (this.activeIndex) {
 					case 0:
-						this.sizeCount += 40;
-						this.isLoading = true;
-						eventBus.$emit('reachBottomIndex', this.sizeCount)
-						setTimeout(() => {
-							this.isLoading = false;
-						}, 2000)
+						this.reachFun(40, 'reachBottomIndex');
 						break;
 					case 1:
-						this.sizeCount += 20;
-						this.isLoading = true;
-						eventBus.$emit('reachBottomNews', this.sizeCount)
-						setTimeout(() => {
-							this.isLoading = false;
-						}, 2000)
+						this.reachFun(20, 'reachBottomNews');
 						break;
 					case 2:
-						this.sizeCount += 10;
-						this.isLoading = true;
-						eventBus.$emit('reachBottomLocalNews', this.sizeCount)
-						setTimeout(() => {
-							this.isLoading = false;
-						}, 2000)
+						this.reachFun(10, 'reachBottomLocalNews');
 						break;
 					case 3:
-						this.sizeCount += 20;
-						this.isLoading = true;
-						eventBus.$emit('reachBottomLocalEvil', this.sizeCount)
-						setTimeout(() => {
-							this.isLoading = false;
-						}, 2000)
+						this.reachFun(20, 'reachBottomLocalEvil');
 						break;
 					case 4:
-						this.sizeCount += 20;
-						this.isLoading = true;
-						eventBus.$emit('reachBottomLocalFun', this.sizeCount)
-						setTimeout(() => {
-							this.isLoading = false;
-						}, 2000)
+						this.reachFun(20, 'reachBottomLocalFun');
+						break;
+					case 5:
+						this.reachFun(20, 'reachBottomLocalSport');
 						break;
 				}
 
-			}, 5000)
+			}, 5000),
+			reachFun(size, name) {
+				this.sizeCount += size;
+				eventBus.$emit(name, this.sizeCount)
+				this.isLoading = true;
+				setTimeout(() => {
+					this.isLoading = false;
+				}, 2000)
+			}
 		}
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	* {
 		font-family: "Microsoft YaHei", "STHeiti Light", "Trebuchet MS", Tahoma, Arial, sans-serif
 	}

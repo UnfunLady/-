@@ -1,6 +1,6 @@
 <template>
-
 	<view class="content">
+
 		<view class="mask">
 		</view>
 		<view class="header-top">
@@ -19,7 +19,7 @@
 						<swiper :disable-touch="true" class="swiper" easing-function="easeInOutCubic" circular
 							autoplay="true" :duration="1000" :interval="4000" vertical>
 							<swiper-item v-for="item in hotKeyList">
-								<view class="swiper-item uni-bg-red" @click="toSearch(item.hotWord)">{{item.hotWord}}
+								<view class=" swiper-item uni-bg-red" @click="toSearch(item.hotWord)">{{item.hotWord}}
 								</view>
 							</swiper-item>
 
@@ -49,7 +49,9 @@
 		},
 		methods: {
 			toSearch(hotWord) {
-				console.log(hotWord);
+				uni.navigateTo({
+					url: `/pages/searchPage/searchPage?keyword=${hotWord}`,
+				})
 			}
 		}
 	}
