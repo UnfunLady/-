@@ -13,7 +13,25 @@ const keyWordSearch = (keyWord) => {
 		method: "get"
 	})
 }
+const searchResult = (query, size = 20) => {
+	return http.request({
+		baseUrl: '/aa',
+		url: `/nc/api/v1/pc-wap/search?query=${query}&size=${size}&from=wap&needPcUrl=false`,
+		method: "get"
+	})
+}
+
+const searchResultHasMore = (query, page = 0, queryId = 0, size = 20 ) => {
+	return http.request({
+		baseUrl: '/aa',
+		url: `/nc/api/v1/pc-wap/search?query=${query}&page=${page}&queryId=${queryId}&size=${size}&from=wap&needPcUrl=false`,
+		method: "get"
+	})
+}
+
 export default {
 	getHotKeys,
-	keyWordSearch
+	keyWordSearch,
+	searchResult,
+	searchResultHasMore
 }

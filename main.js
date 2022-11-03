@@ -3,6 +3,7 @@ import App from './App'
 import Vue from 'vue'
 import uView from '@/uview-ui'
 import * as api from '@/common/api/index.js'
+import store from '@/store/store.js'
 import VueLazyload from 'vue-lazyload'
 Vue.use(uView)
 Vue.use(VueLazyload, {
@@ -13,6 +14,7 @@ uni.$u.config.unit = 'rpx'
 App.mpType = 'app'
 Vue.prototype.$API = api;
 const app = new Vue({
+	store,
 	...App
 })
 app.$mount()

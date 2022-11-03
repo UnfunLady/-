@@ -2,7 +2,7 @@ export default {
 	common: {
 		baseUrl: '/req',
 		header: {
-			'content-type': 'application/json',
+			'content-type': 'application/json;charset=UTF-8',
 			// 'content-type': 'application/x-www-form-urlencoded'
 		},
 		data: {},
@@ -20,7 +20,6 @@ export default {
 			uni.request({
 				...options,
 				success: (result) => {
-
 					if (result.statusCode != 200) {
 						return rej();
 					}

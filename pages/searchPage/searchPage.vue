@@ -20,41 +20,27 @@
 						@click="goToSearchResultBySearch(index)"></text>
 				</view>
 			</view>
-
 		</view>
-		<view class="historySearch">
+		<view class="historySearch" v-if="getSearchHistory.length>0">
 			<view class="topInfo">
 				<view class="title">
 					<h5>搜索历史</h5>
 				</view>
-				<view class="deleteHistory">
+				<view class="deleteHistory" @click="clearHistoryFunc">
 					<u-icon name="trash" color="#838383" size="34"></u-icon>
 				</view>
 			</view>
 			<view class="mainView">
-				<view class="history">
+				<view class="history" @click="toResultPage(history)" v-for="(history,index) in getSearchHistory"
+					:key="index">
 					<view class="text">
-						<u--text :lines="1" text="55发射梦天实验舱发射梦天实验舱发射梦天实验舱发射" align="center" size="24"></u--text>
+						<u--text :lines="1" :text="history" align="center" size="24"></u--text>
 					</view>
 				</view>
-				<view class="history">
-					<view class="text">
-						<u--text :lines="1" text="梦天实验舱发射梦天实验舱发射梦天实验舱发射梦天实验舱发射" align="center" size="24"></u--text>
-					</view>
-				</view>
-				<view class="history">
-					<view class="text">
-						<u--text :lines="1" text="333梦天实验舱发射梦天实验舱发射梦天实验舱发射梦天实验舱发射" align="center" size="24"></u--text>
-					</view>
-				</view>
-				<view class="history">
-					<view class="text">
-						<u--text :lines="1" text="123舱发射梦天实验舱发射" align="center" size="24"></u--text>
-					</view>
-				</view>
+
 			</view>
+			<u-divider text="分割线" lineColor="#ececec" :dot="true"></u-divider>
 		</view>
-		<u-divider text="分割线" lineColor="#ececec" :dot="true"></u-divider>
 		<view class="hotSearchRank">
 			<view class="topInfo">
 				<view class="hotTitle">
@@ -85,11 +71,23 @@
 
 			</view>
 		</view>
+		<!-- 点击清除历史 -->
+		<u-modal :show="showClear" :zoom="false" confirmText="清除" cancelText="取消" confirmColor="#5886af"
+			:showCancelButton="true" :buttonReverse="true" :closeOnClickOverlay="true" @confirm="confirmClearHistory"
+			@cancel="showClear=false" @close="showClear=false">
+			<view class="slot-content">
+				是否要清除搜索历史？
+			</view>
+		</u-modal>
 	</view>
 </template>
 
 <script>
 	import _ from 'lodash'
+	import {
+		mapActions,
+		mapGetters
+	} from 'vuex'
 	export default {
 
 		data() {
@@ -98,7 +96,9 @@
 				searchKeyWord: '',
 				hotKeyList: [],
 				keyWordTextList: [],
-				showMaskBoolean: false
+				showMaskBoolean: false,
+				showClear: false,
+				showResult: false,
 			}
 		},
 		onLoad(e) {
@@ -106,23 +106,39 @@
 				this.keyWord = e.keyword;
 			}
 		},
+		computed: {
+			...mapGetters(['getSearchHistory'])
+		},
 		mounted() {
 			this.getSearchHotKeys()
 		},
 		methods: {
+			// 保存搜索历史
+			...mapActions(['saveHistory', 'clearHistory']),
 			async getSearchHotKeys() {
 				const res = await this.$API.searchApi.getHotKeys();
 				this.hotKeyList = res.data.hotWordList;
-
+			},
+			// 删除历史记录
+			clearHistoryFunc() {
+				this.showClear = true;
+			},
+			confirmClearHistory() {
+				this.clearHistory()
+				this.showClear = false;
 			},
 			// 点击热搜榜
 			goToSearchResult(searchWord) {
-				console.log(searchWord);
+				this.saveHistory(searchWord)
+				this.toResultPage(searchWord)
 			},
 			// 点击搜查的关键字
 			goToSearchResultBySearch(index) {
 				// 获取refs对应的关键字跳转
-				console.log(this.$refs.searchTextWord[index].$el.innerText);
+				// 存储搜索历史
+				this.saveHistory(this.$refs.searchTextWord[index].$el.innerText)
+				this.toResultPage(this.$refs.searchTextWord[index].$el.innerText)
+
 			},
 			// 是否显示遮挡的搜索
 			showMask() {
@@ -135,32 +151,40 @@
 			// 获取输入的关键字相关
 			inputKeyWord: _.throttle(async function() {
 				if (this.searchKeyWord.length > 0) {
-					this.showMask();
 					const res = await this.$API.searchApi.keyWordSearch(this.searchKeyWord)
 					this.keyWordTextList = res.data.text;
-
+					this.showMask();
 				}
-			}, 600),
+
+			}, 300),
+			// 跳转到结果页面
+			toResultPage(keyWord) {
+				uni.navigateTo({
+					url: `/pages/searchResult/searchResult?keyWord=${keyWord}`,
+				})
+			},
 			// 点击取消
 			cancelSearch() {
-				uni.navigateBack()
+				if (this.searchKeyWord.length > 0) {
+					this.showMaskBoolean = false;
+					this.searchKeyWord = ''
+				} else {
+					uni.navigateTo({
+						url: '/pages/index/index'
+					})
+				}
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	em {
-		color: red;
-		font-style: normal;
-	}
-
 	.topContent {
-
 		display: flex;
 		width: 100%;
 		align-items: center;
 		justify-content: center;
+
 
 		.inputContent {
 			flex: 1;
@@ -251,8 +275,8 @@
 		width: 100%;
 		display: flex;
 		padding-bottom: 20rpx;
-
 		flex-direction: column;
+		margin-top: 20rpx;
 
 		.topInfo {
 			display: flex;

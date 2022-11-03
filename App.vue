@@ -2,7 +2,6 @@
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
-
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -17,9 +16,8 @@
 	/*每个页面公共css */
 	@import "@/uview-ui/index.scss";
 	@import url("@/common/iconfont.css");
-
 	em {
-		color: red;
+		color: red !important;
 		font-style: normal;
 	}
 </style>
