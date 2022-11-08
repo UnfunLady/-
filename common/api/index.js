@@ -9,6 +9,7 @@ import sportApi from './sportApi/sportApi.js'
 import financeApi from './financeApi/financeApi.js'
 import warApi from './warApi/warApi.js'
 import searchApi from './searchApi/searchApi.js'
+import hotRank from './hotRank/hotRank.js'
 export {
 	index,
 	hotPoint,
@@ -20,5 +21,6 @@ export {
 	sportApi,
 	financeApi,
 	warApi,
-	searchApi
+	searchApi,
+	hotRank
 }

@@ -3,7 +3,6 @@
 		<u-sticky>
 			<u-tabs keyName="name" :activeStyle="{
             color: '#303133',
-            
             transform: 'scale(1.1)'
         }" :inactiveStyle="{
             color: '#606266',
@@ -31,6 +30,7 @@
 			eventBus.$on('swiperChange', (current) => {
 				this.current = current;
 			})
+
 		},
 		destroyed() {
 			eventBus.$off('swiperChange')
@@ -49,8 +49,7 @@
 
 <style scoped lang="scss">
 	.content {
-		max-width: 400rpx;
 
-
+		display: flex;
 	}
 </style>

@@ -152,10 +152,11 @@
 		},
 		methods: {
 			scroll(e) {
-
 				this.scrollTop = e.detail.scrollTop
 				if (this.scrollTop > 1200) {
 					this.isShowBackTop = true;
+				} else {
+					this.isShowBackTop = false;
 				}
 			},
 			backTop() {

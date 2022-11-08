@@ -11,7 +11,7 @@
 						<!-- <u--text :lines="2" :text="card.title"></u--text> -->
 					</view>
 				</view>
-				<view class="bottomInfo">
+				<view class="bottomInfo" :class="card.imgurl.length>1?'bottomInfoImgs':''">
 					<view class="which">
 						{{card.source}}
 					</view>
@@ -24,7 +24,11 @@
 				</view>
 			</view>
 			<view class="rightBox" :class="card.imgurl.length>1?'rightBoxImgs':''">
-				<u--image v-for="(img,index) in card.imgurl" :key="index" :showLoading="true" :src="img" width="225rpx"
+				<view class="maskIcon" v-if="card.skipType=='video'">
+					<u--image :showLoading="true" src="../../static/images/play.png" width="40rpx" height="40rpx">
+					</u--image>
+				</view>
+				<u--image v-for="(img,index) in card.imgurl" :key="index" :showLoading="true" :src="img" width="215rpx"
 					height="170rpx" radius="8">
 				</u--image>
 			</view>
@@ -39,7 +43,7 @@
 		data() {
 			return {
 				keyWord: "",
-				
+
 			};
 		},
 		mounted() {
@@ -48,7 +52,7 @@
 		onLoad(e) {
 			this.keyWord = e.keyWord
 		},
-	
+
 		methods: {
 			getTimeGap(item) {
 				if (item.lmodify) {
@@ -127,12 +131,17 @@
 				}
 			}
 
+			.bottomInfoImgs {
+				position: absolute;
+				bottom: 15rpx;
+			}
+
 			.bottomInfo {
 				display: flex;
 				color: #999999;
 				font-size: 20rpx;
-				position: absolute;
-				bottom: 20rpx;
+				margin-top: 20rpx;
+
 
 				.which,
 				.time,
@@ -143,13 +152,24 @@
 		}
 
 		.rightBoxImgs {
-			margin: 10rpx 0 40rpx 15rpx;
+			margin: 10rpx 15rpx 40rpx 15rpx;
 		}
 
 		.rightBox {
 			display: flex;
 			justify-content: space-between;
-			margin-left: 5rpx;
+			margin-left: 15rpx;
+			margin-right: 15rpx;
+			position: relative;
 		}
+
+		.maskIcon {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 999;
+		}
+
 	}
 </style>

@@ -24,7 +24,7 @@
 
 			</view>
 			<view class="bottomInfo">
-				<text style="font-size: 26rpx;">查看完整榜单</text>
+				<text style="font-size: 26rpx;" @click="toRank">查看完整榜单</text>
 				<u-icon color="#535353" name="arrow-right"></u-icon>
 			</view>
 		</view>
@@ -77,6 +77,11 @@
 			async getNewsInfo(size = 0) {
 				const res = await this.$API.hotPoint.getNews(size);
 				this.newsList = [...this.newsList, ...res.T1467284926140];
+			},
+			toRank() {
+				uni.navigateTo({
+					url: "/pages/searchRank/searchRank"
+				})
 			}
 		}
 	}
@@ -121,7 +126,6 @@
 				padding-top: 25rpx;
 				padding-bottom: 25rpx;
 				border-bottom: 1px solid #f5f5f5;
-
 				text-align: center;
 
 				.leftSquare {

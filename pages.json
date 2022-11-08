@@ -33,6 +33,7 @@
 		, {
 			"path": "pages/searchPage/searchPage",
 			"style": {
+				"navigationBarTitleText": "搜索",
 				"navigationStyle": "custom", // 隐藏系统导航栏
 				"navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
 			}
@@ -45,6 +46,14 @@
 				"enablePullDownRefresh": false,
 				"onReachBottomDistance": 200
 
+			}
+
+		}, {
+			"path": "pages/searchRank/searchRank",
+			"style": {
+				"navigationBarTitleText": "榜单",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
 			}
 
 		}

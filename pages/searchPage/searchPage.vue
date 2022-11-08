@@ -64,7 +64,7 @@
 							{{hot.tag==='Boil'?'沸':(hot.tag==='New'?'新':(hot.tag==='Hot'?'热':null))}}
 						</view>
 						<view class="explain">
-							{{hot.exp}}热度
+							{{transformNumber(hot.exp)}}热度
 						</view>
 					</view>
 				</view>
@@ -84,6 +84,7 @@
 
 <script>
 	import _ from 'lodash'
+	import NTM from '@/common/utils/numbetTomillion.js'
 	import {
 		mapActions,
 		mapGetters
@@ -173,6 +174,9 @@
 						url: '/pages/index/index'
 					})
 				}
+			},
+			transformNumber(number) {
+				return NTM(number)
 			}
 		}
 	}
@@ -324,8 +328,7 @@
 					background-color: #ffaa00;
 				}
 
-				.tag_Boil {
-
+				.tag_boil {
 					background-color: #d4113f !important;
 				}
 
