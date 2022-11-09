@@ -1,6 +1,5 @@
 <template>
 	<view class="content">
-
 		<view class="mask">
 		</view>
 		<view class="header-top">

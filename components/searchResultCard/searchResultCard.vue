@@ -104,6 +104,7 @@
 					flex: 1;
 					text-align: center;
 					min-width: 50rpx;
+					max-width: 50rpx;
 					margin-top: 10rpx;
 					margin-right: 10rpx;
 					font-size: 20rpx;

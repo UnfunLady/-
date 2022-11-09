@@ -6,6 +6,7 @@
 
 <script>
 	import HotRankCard from '@/components/hotRankCard/hotRankCard.vue'
+
 	export default {
 		components: {
 			HotRankCard

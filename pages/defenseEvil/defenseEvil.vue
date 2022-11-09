@@ -88,7 +88,8 @@
 				actionsList: [{
 						id: 0,
 						title: '隔离政策',
-						imgsrc: '../../static/images/safe.svg'
+						imgsrc: '../../static/images/safe.svg',
+						url: '/pages/defenseEvil_policy/defenseEvil_policy'
 					},
 					{
 						id: 1,

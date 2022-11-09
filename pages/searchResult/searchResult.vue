@@ -91,7 +91,6 @@
 		},
 		onLoad(e) {
 			this.keyWord = e.keyWord;
-
 		}
 	}
 </script>

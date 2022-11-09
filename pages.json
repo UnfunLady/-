@@ -56,6 +56,17 @@
 				"navigationStyle": "custom"
 			}
 
+		}, {
+			"path": "pages/defenseEvil_policy/defenseEvil_policy",
+			"style": {
+				"navigationBarTitleText": "隔离政策",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
+			}
+
 		}
 	],
 	"globalStyle": {
@@ -63,6 +74,7 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+
 	},
 	"uniIdRouter": {}
 }

@@ -3,9 +3,15 @@
 		<view class="content">
 			<BackTop :isShowBackTop="backTop" :backTop="toTop" />
 			<view class="topImg">
-				<u--image :showLoading="true"
-					src="https://static.ws.126.net/163/frontend/hot-content/img/icon-banner-tall.0c137e76.png"
-					width="100%" height="310"></u--image>
+				<view class="maskText">
+					<view class="topText">
+						资讯热榜
+					</view>
+					<view class="bottomText">
+						全网热点 一榜打尽
+					</view>
+				</view>
+				<u--image :showLoading="true" src="../../static/images/rbg.png" width="100%" height="310"></u--image>
 			</view>
 			<view class="mainInfo">
 				<view class="topTabs">
@@ -103,6 +109,8 @@
 				this.scrollTop = e.detail.scrollTop;
 				if (this.scrollTop > 1200) {
 					this.backTop = true;
+				} else {
+					this.backTop = false;
 				}
 			},
 			swiperChange(current) {
@@ -123,6 +131,45 @@
 
 <style lang="scss">
 	.content {
+		.topImg {
+			position: relative;
+
+			.maskText {
+
+				// position: absolute;
+				.topText {
+					position: absolute;
+					top: 43%;
+					left: 50%;
+					z-index: 999;
+					transform: translate(-50%, -50%);
+					color: white;
+					font-size: 80rpx;
+
+					text-align: center;
+					font-style: italic;
+					font-weight: 900;
+
+				}
+
+				.bottomText {
+					position: absolute;
+					top: 70%;
+					left: 50%;
+					font-style: italic;
+					font-weight: 900;
+					z-index: 999;
+					font-size: 30rpx;
+
+					transform: translate(-50%, -50%);
+					background: linear-gradient(to right, #ffffff, #fef02c, #55ffff, #efefef);
+					color: transparent;
+					background-clip: text;
+
+				}
+			}
+		}
+
 		.mainInfo {
 			.topTabs {
 				width: 100%;

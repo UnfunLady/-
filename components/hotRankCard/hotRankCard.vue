@@ -16,8 +16,8 @@
 									</u--text>
 								</view>
 								<view class="whichTime">
-									<view class="videoText" v-if="card.type==='video'">
-										<u--text size="22" :bold="true" color="green	" :lines="1" text="视频">
+									<view class="videoText" v-if="card.type==='video'&&card.replyCount">
+										<u--text size="22" :bold="true" color="green" :lines="1" text="视频">
 										</u--text>
 									</view>
 
@@ -29,7 +29,11 @@
 									<view class="who wtext">
 										{{card.source}}
 									</view>
-									<view class="repry wtext">
+									<view class=" repry wtext videoPlayCount"
+										v-if="card.type==='video'&&card.videoInfo.playCount">
+										{{tansformNumber(card.videoInfo.playCount)+'次观看'}}
+									</view>
+									<view class="repry wtext" v-else>
 										{{card.replyCount?tansformNumber(card.replyCount):tansformNumber(card.commentCount)}}回复
 									</view>
 								</view>
@@ -42,7 +46,7 @@
 								</view>
 								<view class="videoTime" v-if="card.type==='video'">
 									<u--text size="15" :bold="true" color="white" :lines="1"
-										:text="card.videoInfo.length+'s'">
+										:text="transformVideoTime(card.videoInfo.length)">
 									</u--text>
 								</view>
 								<u--image :showLoading="true" radius="8" :src="card.doc_image?card.doc_image:card.img"
@@ -67,6 +71,7 @@
 
 <script>
 	import NTM from '@/common/utils/numbetTomillion.js'
+	import getVideoTime from '@/common/utils/getVideoTime.js';
 	export default {
 		props: {
 			cardList: {
@@ -81,6 +86,9 @@
 		methods: {
 			tansformNumber(number) {
 				return NTM(number)
+			},
+			transformVideoTime(number) {
+				return getVideoTime(number);
 			}
 		}
 	}
@@ -127,6 +135,8 @@
 
 				.topBox {
 					display: flex;
+					position: relative;
+					padding-bottom: 35rpx;
 
 					.explainBox {
 						display: flex;
@@ -141,6 +151,8 @@
 						.whichTime {
 							display: flex;
 							align-items: center;
+							position: absolute;
+							bottom: 0;
 
 							.wtext {
 								font-size: 22rpx;
@@ -151,10 +163,12 @@
 							.who {
 								text-overflow: ellipsis;
 								overflow: hidden;
+
+								max-width: 140rpx;
+								white-space: nowrap;
 							}
 
 							.repry {
-
 								overflow: hidden;
 							}
 
@@ -179,10 +193,12 @@
 
 						.videoTime {
 							position: absolute;
-							top: 90%;
-							left: 80%;
-							transform: translate(-80%, -80%);
+							bottom: 18rpx;			
+							right: 20rpx;
+							transform: scale(.8);
 							z-index: 999;
+							text-align: center;
+					
 						}
 					}
 

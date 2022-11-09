@@ -1,9 +1,9 @@
 <template>
 	<view>
 		<view class="hotSearchRank">
-		
 			<view class="hotKeyWord">
-				<view class="iconOrNum" v-for="(hot,index) in hotKeyList" :key="index">
+				<view class="iconOrNum" v-for="(hot,index) in hotKeyList" :key="index"
+					@click="toSearchResult(hot.hotWord)">
 					<view class="oneRank">
 						<view class="leftSquare"
 							:class="index===0?'oneText':(index===1?'twoText':(index===2?'threeText':null))">
@@ -45,6 +45,12 @@
 			},
 			transformNumber(number) {
 				return NTM(number)
+			},
+			toSearchResult(keyWord) {
+				uni.navigateTo({
+					url: `/pages/searchResult/searchResult?keyWord=${keyWord}`,
+
+				})
 			}
 		}
 	}

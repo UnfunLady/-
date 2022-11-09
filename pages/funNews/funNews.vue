@@ -64,7 +64,6 @@
 
 			async getFunNews(num = 0) {
 				const res = await this.$API.funApi.getFunNewsInfo(num);
-
 				this.cardList = [...this.cardList, ...res.T1348648517839];
 				this.swiperList = this.cardList.slice(0, 5);
 			}

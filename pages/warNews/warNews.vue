@@ -88,6 +88,8 @@
 				this.scrollTop = e.detail.scrollTop
 				if (this.scrollTop > 1200) {
 					this.backTop = true;
+				} else {
+					this.backTop = false;
 				}
 			},
 			toTop() {

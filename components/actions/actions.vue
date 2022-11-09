@@ -6,7 +6,7 @@
 					<u-icon :showLoading="true" size="70" :name="item.imgsrc">
 					</u-icon>
 				</view>
-				<view class="explain">
+				<view class="explain" @click="toActionPage(item)">
 					{{item.title}}
 				</view>
 			</view>
@@ -24,7 +24,12 @@
 			}
 		},
 		methods: {
+			toActionPage(item) {
 
+				uni.navigateTo({
+					url: item.url
+				})
+			}
 		}
 	}
 </script>
@@ -40,7 +45,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
-	
+
 		.action {
 
 			margin: 10rpx;

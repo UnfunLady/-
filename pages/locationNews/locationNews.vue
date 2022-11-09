@@ -128,7 +128,6 @@
 				const res = await this.$API.locationNews.getLocalNews(size);
 				if (res.code === 200) {
 					this.localNes = [...this.localNes, ...res.data];
-
 				} else {
 					this.$refs.uNotify.show({
 						top: 10,
