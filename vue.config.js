@@ -48,6 +48,14 @@ module.exports = {
 					'^/tt': ''
 				}
 			},
+			'/ip': {
+				target: 'https://ipservice.ws.126.net',
+				changeOrigin: true,
+				ws: true,
+				pathRewrite: {
+					'^/ip': ''
+				}
+			}
 
 		},
 	}

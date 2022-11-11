@@ -94,7 +94,8 @@
 					{
 						id: 1,
 						title: '辟谣一线',
-						imgsrc: '../../static/images/piyao.svg'
+						imgsrc: '../../static/images/piyao.svg',
+						url: '/pages/defenseEvil_FakeNews/defenseEvil_FakeNews'
 					},
 					{
 						id: 2,

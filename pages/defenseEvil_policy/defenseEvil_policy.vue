@@ -46,23 +46,31 @@
 				<view class="bottomInfo">
 					<view class="explainText">
 						<text> 更新时间：</text>
-						<u--text :text="updateTime" color="#c5c5c5" mode="date"></u--text>
+						<u--text color="#c52c3c" :text="this.updateTime" mode="date">
+						</u--text>
 					</view>
 				</view>
 			</view>
-			<view class="outMainInfo">
+			<view class="outMainInfo" v-if="JSON.stringify(outDataList)!=='{}'">
 				<view class="titleInfo">
 					<view class="type">
 						出城
 					</view>
-					<view class="cityName risk">
-						北京
+					<view class="cityName">
+						{{outDataList.data.items[0].city}}
 					</view>
-					<view class="HighRisk risk">
-						<u-tag text="高风险地区" type="error" size="mini" icon="error-circle" plain></u-tag>
+					<view class="HighRisk risk" v-if="outHighCityListLength!==0">
+						<u-tag :text="outHighCityListLength+'个高风险地区'" type="error" size="mini" icon="error-circle"
+							plain>
+						</u-tag>
 					</view>
-					<view class="mediumRisk risk">
-						<u-tag text="中风险地区" type="warning" size="mini" icon="warning" plain></u-tag>
+					<view class="mediumRisk risk" v-if="outMediumCityListLength!==0">
+						<u-tag :text="outMediumCityListLength+'个中风险地区'" type="warning" size="mini" icon="warning" plain>
+						</u-tag>
+					</view>
+					<view class="risk" v-else>
+						<u-tag text="低风险地区" type="success" size="mini" icon="checkbox-mark" plain>
+						</u-tag>
 					</view>
 				</view>
 				<!-- 出城政策 -->
@@ -70,80 +78,94 @@
 					<view class="topTitle">
 						出城政策
 					</view>
-					<view class="contentInfo">
-						在京党政机关、国有企事业单位人员带头执行，除重要公务活动需要外原则上不出京，确需出京的严格审批管理。提倡市民群众减少出京活动，确需出京的，要防范旅途疫情风险，全程规范佩戴口罩，做好个人防护，不前往有疫情的县（市、区、旗）。如途中出现涉疫风险，就地配合落实防疫措施，暂缓进返京。严控本地中高风险区及其他涉疫风险人员出京。
+					<view class="contentInfo" v-for="(cinfo,index) in outDataList.data.items[0].leavePolicyList"
+						:key="index">
+						{{cinfo}}
 					</view>
 				</view>
 				<view class="highAndMedium">
-					<view class="topTitle">
-						136个中高风险地区
+					<view class="topTitle" v-show="outHighCityListLength>0||outMediumCityListLength>0">
+						{{outHighCityListLength+outMediumCityListLength}}个中高风险地区
 					</view>
-					<view class="mainInfo">
-						<u-tag text="高风险" size="mini" type="error" plain></u-tag>
-						<text style="margin-left: 20rpx;"> 北京市平谷区平谷（渔阳地区）镇太和东园4号楼</text>
+					<view class="mainInfo" v-for="(item,index) in outDataList.data.items[0].poiList" :key="index">
+						<u-tag text="高风险" size="mini" type="error" plain v-show="item.type=='1'"></u-tag>
+						<u-tag text="中风险" size="mini" type="warning" plain v-show="item.type=='2'"></u-tag>
+						<span style="margin-left:96rpx;" v-show="item.type=='0'"></span>
+						<text style="margin-left: 20rpx;"> {{item.area}}</text>
 					</view>
-					<view class="mainInfo">
-						<u-tag text="中风险" size="mini" type="warning" plain></u-tag>
-						<text style="margin-left: 20rpx;"> 北京市平谷区兴谷街道金乡西小区53号楼</text>
-					</view>
-					<view class="mainInfo">
-						<u-tag text="高风险" size="mini" type="error" plain></u-tag>
-						<text style="margin-left: 20rpx;"> 北京市石景山区苹果园街道海特花园57号楼1、2单元</text>
-					</view>
+
 					<view class="bottomInfo">
 						<text> 数据来源：当地卫健委和权威网站 </text>
-						<span style="display: flex;">发布时间：<u--text color="#c52c3c" :text="updateTime" mode="date">
+						<span style="display: flex;">发布时间：<u--text color="#c52c3c" :text="outDataList.timestamp"
+								mode="date">
 							</u--text></span>
 					</view>
 				</view>
 
 			</view>
-			<view class="inMainInfo">
-				<view class="titleInfo">
+			<view class="inMainInfo" v-if="JSON.stringify(inDataList)!=='{}'">
+				<view class="titleInfo ">
 					<view class="type">
 						进城
 					</view>
-					<view class="cityName risk">
-						山西
+					<view class="cityName">
+						{{inDataList.data.items[0].city}}
 					</view>
-					<view class="HighRisk risk">
-						<u-tag text="低风险地区" type="success" size="mini" icon="checkbox-mark" plain></u-tag>
+					<view class="HighRisk risk" v-if="inHighCityListLength!==0">
+						<u-tag :text="inHighCityListLength+'个高风险地区'" type="error" size="mini" icon="error-circle" plain>
+						</u-tag>
+					</view>
+					<view class="mediumRisk risk" v-if="inMediumCityListLength!==0">
+						<u-tag :text="inMediumCityListLength+'个中风险地区'" type="warning" size="mini" icon="warning" plain>
+						</u-tag>
+					</view>
+					<view class="risk" v-else>
+						<u-tag text="低风险地区" type="success" size="mini" icon="checkbox-mark" plain>
+						</u-tag>
 					</view>
 				</view>
 				<view class="mainInfo">
 					<view class="titleInfo">
 						入城政策
 					</view>
-					<view class="contentInfo">
-						1.对7天内有高风险区旅居史的返（抵）并人员，太原检疫登记信息系统为红标，健康码赋红码，落地核酸检测，实施“7天集中隔离医学观察+5次核酸检测”的管控措施，在第1、2、3、5、7天各开展一次核酸检测。
+					<view class="contentInfo" v-for="(cinfo,index) in inDataList.data.items[0].backPolicyList"
+						:key="index">
+						{{cinfo}}
 					</view>
-					<view class="contentInfo">
-						2.对7天内有中风险区旅居史的返（抵）并人员，太原检疫登记信息系统为黄标，健康码赋黄码，落地核酸检测，实施“7居家隔离医学观察+3次核酸检测”的管控措施，在第1、4、7天各开展一次核酸检测。
-					</view>
-					<view class="contentInfo">
-						3.对7天内有低风险区旅居史的返（抵）并人员，太原检疫登记信息系统为蓝标，落地核酸检测，返（抵）并后3天内完成2次核酸检测，并做好健康监测，纳入社区管理，未按要求时限、频次落实核酸检测的赋黄码管理，完成核酸检测后转绿码。
-					</view>
-					<view class="contentInfo">
-						4.省外无疫情县（市、区）的返（抵）并人员，太原检疫登记信息系统为绿标，落地核酸检测，在做好个人防护的前提下有序流动，3天内再完成2次核酸检测。
+					<view class="highAndMedium">
+						<view class="topTitle" v-show="inHighCityListLength>0||inMediumCityListLength>0">
+							{{inHighCityListLength+inMediumCityListLength}}个中高风险地区
+						</view>
+						<view class="main" v-for="(item,index) in inDataList.data.items[0].poiList">
+							<u-tag text="高风险" size="mini" type="error" plain v-show="item.type=='1'"></u-tag>
+							<u-tag text="中风险" size="mini" type="warning" plain v-show="item.type=='2'"></u-tag>
+							<span style="margin-left:96rpx;" v-show="item.type=='0'"></span>
+							<text style="margin-left: 20rpx;"> {{item.area}}</text>
+						</view>
 					</view>
 					<view class="bottomInfo">
 						<text> 数据来源：当地卫健委和权威网站 </text>
-						<span style="display: flex;">发布时间：<u--text color="#c52c3c" :text="updateTime" mode="date">
+						<span style="display: flex;">发布时间：<u--text color="#c52c3c" :text="inDataList.timestamp"
+								mode="date">
 							</u--text></span>
 					</view>
 				</view>
-
+			</view>
+			<view class="empty" v-if="JSON.stringify(outDataList)==='{}'&&JSON.stringify(inDataList)==='{}'">
+				当前暂无数据~
 			</view>
 			<!-- 选择列表 -->
 			<view class="mpicker">
-				<u-picker :show="showSelect" ref="uPicker" :columns="JSON.parse(JSON.stringify(this.columns))"
-					@confirm="confirm" @change="changeHandler" @cancel="cancel" @close="cancel"
-					:closeOnClickOverlay="true">
+				<u-picker :show="showSelect" :itemHeight="88" :defaultIndex='defaultSelectArray' ref="uPicker"
+					:columns="JSON.parse(JSON.stringify(this.columns))" @confirm="confirm" @change="changeHandler"
+					@cancel="cancel" @close="cancel" keyName="name" :closeOnClickOverlay="true">
 				</u-picker>
 			</view>
 		</view>
 		<!-- 警告提示 -->
 		<u-toast ref="uToast"></u-toast>
+		<u-modal :show="showIp" :closeOnClickOverlay="true" @close="cancelIpSearch" @confirm="confirmIpSearch"
+			@cancel="cancelIpSearch" :showCancelButton="true" :buttonReverse="true" :content='ipContent'></u-modal>
 	</view>
 </template>
 
@@ -151,38 +173,76 @@
 	export default {
 		data() {
 			return {
+				ipCityCode: 0,
+				ipCity: 0,
+				ipContent: '',
+				showIp: false,
 				showSelect: false,
-
-				columns: [
-
-				],
+				columns: [],
 				formText: '',
 				toText: '',
-				updateTime: '',
+				updateTime: 0,
 				columnData: [
 
 				],
 				edit: '',
 				allCityNumber: [],
 				alertMessage: '',
-				showAlert: false
+				showAlert: false,
+				// 出
+				outDataList: {},
+				// 入
+				inDataList: {},
+				// 出城高风险地区集合数量
+				outHighCityListLength: [],
+				// 出城种中风险地区集合数量
+				outMediumCityListLength: [],
+				// 如城高风险地区集合数量
+				inHighCityListLength: [],
+				// 入城中风险地区集合数量
+				inMediumCityListLength: [],
+				// 记录当前选择的地区数组
+				defaultSelectArray: [],
+				// 打开选择时默认左右边数据
+				formRightData: [],
+				toRightData: [],
+				formLeftData: [],
+				toLeftData: [],
+				formCityId: 0,
+				toCityId: 0
 			};
 		},
 		mounted() {
-			// this.getOptions()
+
+			this.getLocation()
 		},
 		methods: {
+			async getLocation() {
+				const res = await this.$API.defenseEvilPolicyApi.getIpLocation()
+				this.ipCity = res.result.city;
+				this.ipCityCode = res.result.administrativeCode
+				this.ipContent = `您当前定位城市为${res.result.city},是否选择${res.result.city}为出发地`;
+				this.showIp = true;
+				this.getOptions();
+			},
+			confirmIpSearch() {
+				this.showIp = false;
+				this.searchInfoByName(this.ipCityCode, 'Form')
+			},
+			cancelIpSearch() {
+				this.showIp = false;
+			},
 			async getOptions() {
 				// 获取城市信息
 				const res = await this.$API.defenseEvilPolicyApi.getSelectOptions()
 				const leftData = res.data.items.map((city) => {
-					// 把id号存起来 点击确定时便利
-					const cityData = {
+					// 把所有城市id号存起来
+
+					const citys = {
 						id: city.id,
 						name: city.name
 					}
-					this.allCityNumber.push(cityData)
-					return city.name
+					return citys
 				})
 				const rightData = res.data.items.map((city) => {
 					const lastData = city.list.map((scity) => {
@@ -194,20 +254,22 @@
 
 						return scity.name
 					})
-					return lastData
+					return city
 				})
 				this.columns.push(leftData);
 				// 打开时右边的默认数据
-				this.columns.push([res.data.items[0].list[0].name])
+				this.columns.push([res.data.items[0].list[0]])
 				this.columnData.push(rightData);
 				// 获取时间戳
 				this.updateTime = res.timestamp;
+
 
 			},
 			changeHandler(e) {
 				const {
 					columnIndex,
 					value,
+					indexs,
 					values, // values为当前变化列的数组内容
 					index,
 					// 微信小程序无法将picker实例传出来，只能通过ref操作
@@ -216,19 +278,26 @@
 				// 当第一列值发生变化时，变化第二列(后一列)对应的选项
 				if (columnIndex === 0) {
 					// 	// picker为选择器this实例，变化第二列对应的选项
-					picker.setColumnValues(1, JSON.parse(JSON.stringify(this.columnData))[0][index])
+					picker.setColumnValues(1, JSON.parse(JSON.stringify(this.columnData))[0][index].list)
 				}
 			},
 			// 回调参数为包含columnIndex、value、values
 			confirm(e) {
+
 				switch (this.edit) {
 					case 'Form':
-						this.formText = e.value[e.value.length - 1]
-						this.searchInfoByName(e.value[e.value.length - 1], 'Form')
+
+						// 判断是不是对象
+						this.formText = e.value[e.value.length - 1].name
+						this.searchInfoByName(e.value[e.value.length - 1].id, 'Form')
+						this.formRightData = e.values[1]
+						this.formLeftData = e.indexs
 						break;
 					case 'To':
-						this.toText = e.value[e.value.length - 1]
-						this.searchInfoByName(e.value[e.value.length - 1], 'To')
+						this.toText = e.value[e.value.length - 1].name
+						this.searchInfoByName(e.value[e.value.length - 1].id, 'To')
+						this.toRightData = e.values[1]
+						this.toLeftData = e.indexs
 						break;
 				}
 				this.showSelect = false
@@ -239,20 +308,70 @@
 			selectForm() {
 				this.edit = 'Form';
 				this.showSelect = true;
+				if (this.formRightData.length > 0) {
+					this.columns[1] = this.formRightData;
+					this.$refs.uPicker.setIndexs(this.formLeftData)
+				} else {
+					this.$refs.uPicker.setIndexs([0, 0])
+				}
 			},
 			selectTo() {
 				this.edit = 'To';
 				this.showSelect = true;
+				if (this.toRightData.length > 0) {
+					this.columns[1] = this.toRightData;
+					this.$refs.uPicker.setIndexs(this.toLeftData)
+				} else {
+					this.$refs.uPicker.setIndexs([0, 0])
+				}
 			},
 			// 根据传递的name值获取id查找信息
-			searchInfoByName(name, type) {
-				let editId = null;
-				this.allCityNumber.map((c) => {
-					if (c.name == name) {
-						editId = c.id;
-					}
-				})
-				console.log(editId, type);
+			async searchInfoByName(cityId, type) {
+				// 根据cityId找
+				// 转换选择默认值
+
+				switch (type) {
+					case 'Form':
+						this.formCityId = cityId;
+						this.outHighCityListLength = 0;
+						this.outMediumCityListLength = 0;
+						const res = await this.$API.defenseEvilPolicyApi.getInfoData(this.formCityId);
+						this.outDataList = res;
+						this.formText = res.data.items[0].city;
+
+						if (res.data.items[0].poiList) {
+							res.data.items[0].poiList.map((city) => {
+								if (city.type == '1') {
+									this.outHighCityListLength++
+								}
+							})
+							res.data.items[0].poiList.map((city) => {
+								if (city.type == '2') {
+									this.outMediumCityListLength++;
+								}
+							})
+						}
+						break;
+					case 'To':
+						this.toCityId = cityId;
+						this.inHighCityListLength = 0;
+						this.inMediumCityListLength = 0;
+						const res2 = await this.$API.defenseEvilPolicyApi.getInfoData(this.toCityId);
+						this.inDataList = res2;
+						if (res2.data.items[0].poiList) {
+							res2.data.items[0].poiList.map((city) => {
+								if (city.type == '1') {
+									this.inHighCityListLength++
+								}
+							})
+							res2.data.items[0].poiList.map((city) => {
+								if (city.type == '2') {
+									this.inMediumCityListLength++;
+								}
+							})
+						}
+						break;
+				}
 			},
 			showToast(params) {
 				this.$refs.uToast.show({
@@ -261,17 +380,30 @@
 			},
 			// 点击转换时候 切换名字 并获取信息
 			transformToForm() {
+				if (this.toLeftData.length > 0 && this.toRightData.length &&
+					this.formLeftData.length > 0 && this
+					.formRightData.length > 0) {
+					const tempLeft = this.formLeftData;
+					const tempRight = this.formRightData;
+					this.formLeftData = this.toLeftData;
+					this.formRightData = this.toRightData;
+					this.toLeftData = tempLeft;
+					this.toRightData = tempRight;
+				}
 				if (this.formText !== '' && this.toText !== '') {
-					let temp = null;
-					temp = this.formText;
+					let temp = this.formCityId;
+					this.formCityId = this.toCityId;
+					this.toCityId = temp;
+					let temp2 = this.formText;
 					this.formText = this.toText;
-					this.toText = temp;
-					this.searchInfoByName(this.formText, 'Form')
-					this.searchInfoByName(this.toText, 'To')
+					this.toText = temp2;
+
+					this.searchInfoByName(this.formCityId, 'Form')
+					this.searchInfoByName(this.toCityId, 'To')
 				} else {
 					this.showToast({
 						type: 'default',
-						message: "请先选择城市信息",
+						message: "请先选择出发地和目的地城市",
 					})
 				}
 			}
@@ -286,7 +418,7 @@
 		background-color: #eef1f4;
 		min-height: 100vh;
 		align-items: center;
-		padding-bottom:80rpx ;
+		padding-bottom: 80rpx;
 
 		.topInfo {
 			position: relative;
@@ -312,7 +444,7 @@
 		.selectInfo {
 			position: relative;
 			margin-top: -160rpx;
-			width: 90%;
+			width: 95%;
 			background-color: white;
 			border-radius: 15rpx;
 
@@ -361,7 +493,6 @@
 			}
 
 			.bottomInfo {
-
 				padding: 0 30rpx 30rpx 30rpx;
 				color: #c5c5c5;
 				font-size: 24rpx;
@@ -374,7 +505,7 @@
 		}
 
 		.outMainInfo {
-			width: 90%;
+			width: 95%;
 			border-radius: 8rpx;
 			background-color: white;
 			flex-direction: column;
@@ -383,14 +514,13 @@
 
 			.titleInfo {
 				margin: 30rpx;
-				width: 90%;
+				width: 95%;
 				display: flex;
 				align-items: center;
 
 
-
 				.type {
-					font-size: 24rpx;
+					font-size: 20rpx;
 					min-width: 80rpx;
 					min-height: 35rpx;
 					text-align: center;
@@ -401,7 +531,8 @@
 
 				.cityName {
 					font-weight: bold;
-					font-size: 36rpx;
+					font-size: 28rpx;
+					margin-left: 5rpx;
 
 				}
 			}
@@ -409,7 +540,7 @@
 			.outCityWarning {
 				display: flex;
 				flex-direction: column;
-				width: 90%;
+				width: 95%;
 				margin: 0 30rpx 30rpx;
 
 				.topTitle {
@@ -427,26 +558,28 @@
 			}
 
 			.highAndMedium {
-				width: 90%;
+				width: 95%;
 				display: flex;
 				flex-direction: column;
-				margin: 0 30rpx 30rpx;
+				margin: 0 30rpx 30rpx 20rpx;
 
 				.topTitle {
 					font-weight: bold;
 					font-size: 34rpx;
-
+					margin-bottom: 20rpx;
 				}
 
 				.mainInfo {
-					margin: 15rpx 0 20rpx;
+					margin: 0rpx 0 20rpx;
 					display: flex;
 					align-items: center;
+					text-align: left;
 					font-size: 26rpx;
 
 				}
 
 				.bottomInfo {
+
 					font-size: 26rpx;
 					color: #c5c5c5;
 					display: flex;
@@ -459,16 +592,17 @@
 		}
 
 		.inMainInfo {
-			width: 90%;
+			width: 95%;
 			border-radius: 8rpx;
 			background-color: white;
 			flex-direction: column;
 			display: flex;
 			margin-top: 25rpx;
+			align-items: center;
 
 			.titleInfo {
-				margin: 30rpx 30rpx 0;
-				width: 90%;
+				margin: 30rpx 0rpx 0;
+				width: 95%;
 				display: flex;
 				align-items: center;
 				justify-content: start;
@@ -480,23 +614,22 @@
 					min-height: 35rpx;
 					text-align: center;
 					border-radius: 5rpx;
-					background-color: #e50003;
+					background-color: #ffaa00;
 					color: white;
 				}
 
 				.cityName {
 					font-weight: bold;
-					font-size: 36rpx;
-
+					font-size: 28rpx;
+					margin-left: 5rpx;
 				}
 			}
 
 			.mainInfo {
-				width: 90%;
+				width: 95%;
 				display: flex;
 				flex-direction: column;
-				margin: 0 30rpx 30rpx 0;
-
+				margin: 0 0rpx 30rpx 0;
 
 				.titleInfo {
 					font-weight: bold;
@@ -512,7 +645,34 @@
 					color: #4d4d4d;
 				}
 
+				.highAndMedium {
+					width: 95%;
+					display: flex;
+					flex-direction: column;
+					margin: 0 30rpx 30rpx;
+
+					.topTitle {
+						font-weight: bold;
+						font-size: 34rpx;
+						margin-top: 20rpx;
+						margin-bottom: 20rpx;
+
+					}
+
+					.main {
+						margin: 0rpx 0 20rpx;
+						display: flex;
+						align-items: center;
+						text-align: left;
+						font-size: 26rpx;
+
+					}
+
+
+				}
+
 				.bottomInfo {
+
 					font-size: 26rpx;
 					color: #c5c5c5;
 					display: flex;
@@ -528,8 +688,13 @@
 		}
 
 		.risk {
-			margin-left: 40rpx;
+			transform: scale(.8);
 		}
 
+		.empty {
+			margin-top: 200rpx;
+			font-size: 32rpx;
+			color: #a5a5a5;
+		}
 	}
 </style>

@@ -67,6 +67,23 @@
 				}
 			}
 
+		},
+		{
+			"path": "pages/defenseEvil_FakeNews/defenseEvil_FakeNews",
+			"style": {
+				"navigationBarTitleText": "官方辟谣",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/defenseEvil_FakeNews/fakeNewsSearch/fakeNewsSearch",
+			"style": {
+				"navigationBarTitleText": "查询谣言",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
 		}
 	],
 	"globalStyle": {

@@ -8,6 +8,25 @@ const getSelectOptions = (start = 0, size = 20, tid = 'T1579658657288') => {
 	})
 }
 
+const getInfoData = (cityId) => {
+	return http.request({
+		baseUrl: '/req',
+		url: `/ug/api/wuhan/app/manage/track-map?cityId=${cityId}`,
+		method: 'get'
+	})
+}
+
+const getIpLocation = () => {
+
+	return http.request({
+		baseUrl: '/ip',
+		url: `/locate/api/getLocByIp`,
+		method: 'get'
+	})
+}
+
 export default {
-	getSelectOptions
+	getSelectOptions,
+	getInfoData,
+	getIpLocation
 }
