@@ -176,6 +176,8 @@
 				ipCityCode: 0,
 				ipCity: 0,
 				ipContent: '',
+				// 用来ip地址选择后点击出发地的列表集合遍历取出对应的数组下标用
+				selectArrayByIp: [],
 				showIp: false,
 				showSelect: false,
 				columns: [],
@@ -227,7 +229,7 @@
 			},
 			confirmIpSearch() {
 				this.showIp = false;
-				this.searchInfoByName(this.ipCityCode, 'Form')
+				this.searchInfoByName(this.ipCityCode, 'Form', true)
 			},
 			cancelIpSearch() {
 				this.showIp = false;
@@ -245,17 +247,10 @@
 					return citys
 				})
 				const rightData = res.data.items.map((city) => {
-					const lastData = city.list.map((scity) => {
-						const scityData = {
-							id: scity.id,
-							name: scity.name
-						}
-						this.allCityNumber.push(scityData)
 
-						return scity.name
-					})
 					return city
 				})
+				this.selectArrayByIp = res.data.items;
 				this.columns.push(leftData);
 				// 打开时右边的默认数据
 				this.columns.push([res.data.items[0].list[0]])
@@ -283,15 +278,14 @@
 			},
 			// 回调参数为包含columnIndex、value、values
 			confirm(e) {
-
 				switch (this.edit) {
 					case 'Form':
-
 						// 判断是不是对象
 						this.formText = e.value[e.value.length - 1].name
 						this.searchInfoByName(e.value[e.value.length - 1].id, 'Form')
 						this.formRightData = e.values[1]
 						this.formLeftData = e.indexs
+						console.log(this.formLeftData, this.formRightData)
 						break;
 					case 'To':
 						this.toText = e.value[e.value.length - 1].name
@@ -326,52 +320,90 @@
 				}
 			},
 			// 根据传递的name值获取id查找信息
-			async searchInfoByName(cityId, type) {
+			async searchInfoByName(cityId, type, isIp = false) {
 				// 根据cityId找
-				// 转换选择默认值
+				// 如果是默认ip地址进入的
+				if (isIp) {
+					this.formCityId = cityId;
+					this.outHighCityListLength = 0;
+					this.outMediumCityListLength = 0;
+					const res = await this.$API.defenseEvilPolicyApi.getInfoData(this.formCityId);
+					this.outDataList = res;
+					this.formText = res.data.items[0].city;
+					if (res.data.items[0].poiList) {
+						res.data.items[0].poiList.map((city) => {
+							if (city.type == '1') {
+								this.outHighCityListLength++
+							}
+						})
+						res.data.items[0].poiList.map((city) => {
+							if (city.type == '2') {
+								this.outMediumCityListLength++;
+							}
+						})
+					}
+					this.selectArrayByIp.some((city, index) => {
+						return city.list.some((ccity, cindex) => {
+							if (ccity.id === cityId) {
+								console.log(ccity, city);
+								console.log(index, cindex);
+								// index就是省级的下标 cindex就是ip地址所对应的下标 
+								// 再把city的list赋值给rightData 下标整合数组给leftData
+								this.formLeftData = [index, cindex];
+								this.formRightData = city.list;
+								return true
+							} else {
+								return false
+							}
+						})
 
-				switch (type) {
-					case 'Form':
-						this.formCityId = cityId;
-						this.outHighCityListLength = 0;
-						this.outMediumCityListLength = 0;
-						const res = await this.$API.defenseEvilPolicyApi.getInfoData(this.formCityId);
-						this.outDataList = res;
-						this.formText = res.data.items[0].city;
+					})
 
-						if (res.data.items[0].poiList) {
-							res.data.items[0].poiList.map((city) => {
-								if (city.type == '1') {
-									this.outHighCityListLength++
-								}
-							})
-							res.data.items[0].poiList.map((city) => {
-								if (city.type == '2') {
-									this.outMediumCityListLength++;
-								}
-							})
-						}
-						break;
-					case 'To':
-						this.toCityId = cityId;
-						this.inHighCityListLength = 0;
-						this.inMediumCityListLength = 0;
-						const res2 = await this.$API.defenseEvilPolicyApi.getInfoData(this.toCityId);
-						this.inDataList = res2;
-						if (res2.data.items[0].poiList) {
-							res2.data.items[0].poiList.map((city) => {
-								if (city.type == '1') {
-									this.inHighCityListLength++
-								}
-							})
-							res2.data.items[0].poiList.map((city) => {
-								if (city.type == '2') {
-									this.inMediumCityListLength++;
-								}
-							})
-						}
-						break;
+				} else {
+					switch (type) {
+						case 'Form':
+							this.formCityId = cityId;
+							this.outHighCityListLength = 0;
+							this.outMediumCityListLength = 0;
+							const res = await this.$API.defenseEvilPolicyApi.getInfoData(this.formCityId);
+							this.outDataList = res;
+							this.formText = res.data.items[0].city;
+							if (res.data.items[0].poiList) {
+								res.data.items[0].poiList.map((city) => {
+									if (city.type == '1') {
+										this.outHighCityListLength++
+									}
+								})
+								res.data.items[0].poiList.map((city) => {
+									if (city.type == '2') {
+										this.outMediumCityListLength++;
+									}
+								})
+							}
+							break;
+						case 'To':
+							this.toCityId = cityId;
+							this.inHighCityListLength = 0;
+							this.inMediumCityListLength = 0;
+							const res2 = await this.$API.defenseEvilPolicyApi.getInfoData(this.toCityId);
+							this.inDataList = res2;
+							if (res2.data.items[0].poiList) {
+								res2.data.items[0].poiList.map((city) => {
+									if (city.type == '1') {
+										this.inHighCityListLength++
+									}
+								})
+								res2.data.items[0].poiList.map((city) => {
+									if (city.type == '2') {
+										this.inMediumCityListLength++;
+									}
+								})
+							}
+							break;
+					}
 				}
+
+
 			},
 			showToast(params) {
 				this.$refs.uToast.show({

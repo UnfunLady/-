@@ -23,7 +23,7 @@
 						:class="index===0?'oneText':(index===1?'twoText':(index===2?'threeText':''))">
 						{{index+1}}
 					</view>
-					<view class="title">
+					<view class="title" @click="searchKeyWord(item.title)">
 						<u--text :lines="1" size="26" :text="item.title"></u--text>
 					</view>
 				</view>
@@ -82,12 +82,14 @@
 						duration: 2000
 					})
 				} else {
+					this.keyword = keyword;
 					this.showResult = true;
 					const res = await this.$API.defenseEvilFakeNewsApi.searchKeyWordList(keyword);
 					this.searchResult = res.data.items;
-				}
 
-			}
+				}
+			},
+
 		}
 	}
 </script>
