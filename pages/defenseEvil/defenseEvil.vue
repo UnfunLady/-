@@ -100,7 +100,8 @@
 					{
 						id: 2,
 						title: '详情信息',
-						imgsrc: '../../static/images/xiangqing.svg'
+						imgsrc: '../../static/images/xiangqing.svg',
+						url: '/pages/defenseEvil_ChinaInfo/defenseEvil_ChinaInfo'
 					},
 				]
 			}

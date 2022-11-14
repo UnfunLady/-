@@ -1,6 +1,9 @@
 <template>
 	<view>
-		<HotRankCard :cardList="videoList" />
+		<view class="content">
+			<HotRankCard :cardList="videoList" />
+		</view>
+
 	</view>
 </template>
 
@@ -28,5 +31,8 @@
 </script>
 
 <style lang="scss">
-
+	.content {
+		background-color: #eff1f4;
+		padding: 4rpx 16rpx 20rpx 16rpx
+	}
 </style>

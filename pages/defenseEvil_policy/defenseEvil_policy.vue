@@ -239,7 +239,6 @@
 				const res = await this.$API.defenseEvilPolicyApi.getSelectOptions()
 				const leftData = res.data.items.map((city) => {
 					// 把所有城市id号存起来
-
 					const citys = {
 						id: city.id,
 						name: city.name

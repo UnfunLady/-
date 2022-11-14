@@ -84,6 +84,14 @@
 				"navigationStyle": "custom"
 			}
 
+		}, {
+			"path": "pages/defenseEvil_ChinaInfo/defenseEvil_ChinaInfo",
+			"style": {
+				"navigationBarTitleText": "国内疫情",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
 		}
 	],
 	"globalStyle": {

@@ -29,7 +29,6 @@ const searchKeyWordList = (keyword) => {
 			keyword
 		},
 		header: {
-
 			'content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
 		},
 		method: 'post'

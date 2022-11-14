@@ -9,6 +9,7 @@ Vue.use(uView)
 Vue.use(VueLazyload, {
 	loading: "../static/images/load.png"
 })
+window.wx = {}
 Vue.config.productionTip = false
 uni.$u.config.unit = 'rpx'
 App.mpType = 'app'

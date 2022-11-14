@@ -12,6 +12,7 @@ import searchApi from './searchApi/searchApi.js'
 import hotRank from './hotRank/hotRank.js'
 import defenseEvilPolicyApi from './defenseEvilPolicyApi/defenseEvilPolicyApi.js'
 import defenseEvilFakeNewsApi from './defenseEvilFakeNews/defenseEvilFakeNews.js'
+import defenseEvilChinaApi from './defenseEvilChina/defenseEvilChina.js'
 export {
 	index,
 	hotPoint,
@@ -26,5 +27,6 @@ export {
 	searchApi,
 	hotRank,
 	defenseEvilPolicyApi,
-	defenseEvilFakeNewsApi
+	defenseEvilFakeNewsApi,
+	defenseEvilChinaApi
 }

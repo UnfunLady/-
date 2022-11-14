@@ -30,7 +30,7 @@
 										{{card.source}}
 									</view>
 									<view class=" repry wtext videoPlayCount"
-										v-if="card.type==='video'&&card.videoInfo.playCount">
+										v-if="card.type==='video'&&card.videoInfo">
 										{{tansformNumber(card.videoInfo.playCount)+'次观看'}}
 									</view>
 									<view class="repry wtext" v-else>
@@ -193,12 +193,12 @@
 
 						.videoTime {
 							position: absolute;
-							bottom: 18rpx;			
+							bottom: 18rpx;
 							right: 20rpx;
 							transform: scale(.8);
 							z-index: 999;
 							text-align: center;
-					
+
 						}
 					}
 
