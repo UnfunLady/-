@@ -11,7 +11,7 @@
 						全网热点 一榜打尽
 					</view>
 				</view>
-				<u--image :showLoading="true" src="../../static/images/rbg.png" width="100%" height="310"></u--image>
+				<u--image :showLoading="true" src="../../static/images/redian.png" width="100%" height="310"></u--image>
 			</view>
 			<view class="mainInfo">
 				<view class="topTabs">
@@ -159,10 +159,10 @@
 					font-style: italic;
 					font-weight: 900;
 					z-index: 999;
-					font-size: 30rpx;
+					font-size: 34rpx;
 
 					transform: translate(-50%, -50%);
-					background: linear-gradient(to right, #ffffff, #fef02c, #55ffff, #efefef);
+					background: linear-gradient(to right, #ffffff, #ffffff, #fefefe, #ffffff);
 					color: transparent;
 					background-clip: text;
 

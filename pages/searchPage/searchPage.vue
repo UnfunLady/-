@@ -239,6 +239,7 @@
 		display: flex;
 		margin: 25rpx;
 		flex-direction: column;
+		max-height: 380rpx;
 
 		.topInfo {
 			display: flex;
@@ -358,7 +359,7 @@
 					.rightText {
 						font-size: 26rpx;
 						margin-left: 30rpx;
-						min-width: 35%;
+					
 						max-width: 65%;
 					}
 

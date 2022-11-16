@@ -46,18 +46,21 @@
 				cardList: [],
 				actionsList: [{
 						id: 0,
-						title: 'CBA/NBA',
-						imgsrc: '../../static/images/basketball.svg'
+						title: 'NBA',
+						imgsrc: '../../static/images/basketball.svg',
+						url: '/pages/sport_NBA/sport_NBA'
 					},
 					{
 						id: 1,
-						title: '足球俱乐部',
-						imgsrc: '../../static/images/football.svg'
+						title: '足球',
+						imgsrc: '../../static/images/football.svg',
+						url: '/pages/sport_FootBall/sport_FootBall'
 					},
 					{
 						id: 2,
-						title: '田径世锦赛',
-						imgsrc: '../../static/images/run.svg'
+						title: '跑步',
+						imgsrc: '../../static/images/run.svg',
+						url: "/pages/sport_Run/sport_Run"
 					},
 				]
 			}

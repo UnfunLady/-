@@ -3,7 +3,6 @@
 		<view class="content">
 			<Swiper :swiperList="swiperList" />
 		</view>
-
 		<ActionList :actionsList="actionsList" />
 		<view class="" style="width: 100%;">
 			<u-divider text="分割线" :dot="true"></u-divider>
@@ -45,17 +44,20 @@
 				actionsList: [{
 						id: 0,
 						title: '影视一线',
-						imgsrc: '../../static/images/movie.svg'
+						imgsrc: '../../static/images/movie.svg',
+						url: '/pages/funNews_movieTv/funNews_movieTv'
 					},
 					{
 						id: 1,
 						title: '热播剧场',
-						imgsrc: '../../static/images/tvshow.svg'
+						imgsrc: '../../static/images/tvshow.svg',
+						url: '/pages/funNews_TVshow/funNews_TVshow'
 					},
 					{
 						id: 2,
-						title: '音乐专辑',
-						imgsrc: '../../static/images/music.svg'
+						title: '音娱天地',
+						imgsrc: '../../static/images/music.svg',
+						url: '/pages/funNews_Music/funNews_Music'
 					},
 				]
 			}

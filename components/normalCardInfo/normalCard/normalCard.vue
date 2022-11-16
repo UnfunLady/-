@@ -53,8 +53,8 @@
 				<div class="leftRightBox" :style="(item.imgextra||item.imgsrc3gtype=='3')?'flex-direction:column':null">
 					<div class="leftBox">
 						<div class="explain" style="margin: 0  0 15rpx 0;">
-							<view class="special" v-if="item.specialID||item.imgextra||item.skipType">
-								{{item.specialID?'专题':(item.skipType=='live'?'直播':(item.skipType=='video')?'视频':(item.skipType=='photoset')?'图集':item.imgextra.length>0?'图集':null)}}
+							<view class="special" v-if="item.TAG||item.specialID||item.imgextra||item.skipType">
+								{{item.TAG?item.TAG:item.specialID?'专题':(item.skipType=='live'?'直播':(item.skipType=='video')?'视频':(item.skipType=='photoset')?'图集':item.imgextra.length>0?'图集':null)}}
 							</view>
 							<text class="explainText">
 								<text>{{item.title}}</text>
@@ -81,7 +81,7 @@
 									</template>
 								</u--image>
 							</view>
-							<view style=" flex: 1;" class="" v-else>
+							<view style="flex: 1;" class="" v-else>
 								<u--image class="rightImg" width="234rpx" height="173rpx" radius="6"
 									:src="item.imgsrc?item.imgsrc:(item.picInfo[0] ? item.picInfo[0].url : null)">
 									<template v-slot:loading>
@@ -173,16 +173,16 @@
 					padding: 0 15rpx 0 0;
 
 					.explain {
-
 						font-size: 30rpx;
-
 						font-weight: 400 !important;
 						display: flex;
 						justify-content: start;
 
 						.special {
 							text-align: center;
-							min-width: 60rpx;
+							padding: 0 8rpx 0;
+							min-width: 50rpx;
+							max-width: 120rpx;
 							height: 35rpx;
 							font-size: 22rpx;
 							transform: scale(.9);

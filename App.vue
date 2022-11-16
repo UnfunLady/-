@@ -16,8 +16,13 @@
 	/*每个页面公共css */
 	@import "@/uview-ui/index.scss";
 	@import url("@/common/iconfont.css");
+
 	em {
 		color: red !important;
 		font-style: normal;
 	}
+
+	// * {
+	// 	touch-action: none;
+	// }
 </style>

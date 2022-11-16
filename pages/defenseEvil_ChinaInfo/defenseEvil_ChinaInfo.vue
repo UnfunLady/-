@@ -3,7 +3,7 @@
 		<view class="content">
 			<view class="topInfo">
 				<view class="topImg">
-					<u--image :showLoading="true" src="../../static/images/china.jpg" width="100%" height="422"
+					<u--image :showLoading="true" src="../../static/images/fangyi.png" width="100%" height="422"
 						@click="click"></u--image>
 				</view>
 				<view class="topText">
@@ -250,7 +250,7 @@
 			},
 			initData() {
 				var optionMap = {
-					backgroundColor: '#f3f3f3',
+					backgroundColor: '#fcfcfc',
 					title: {
 						text: '全国疫情分布图',
 						left: 10,

@@ -14,8 +14,9 @@
 				@change.stop="swiperChange">
 				<swiper-item class="swiper-topic-list" v-for="item in topBarList" :key="item.id">
 					<scroll-view :scroll-top="scrollTop" @scroll="scroll" @scrolltolower="reachBottom"
-						@refresherrefresh.stop="onRefresh" refresher-enabled="false" :refresher-triggered="isFlash"
-						refresher-background="#f5f5f5" scroll-y="true" :style="'height:'+clientHeight+'px;'">
+						@refresherrefresh.stop="onRefresh(item)" refresher-enabled="false"
+						:refresher-triggered="isFlash" refresher-background="#f5f5f5" scroll-y="true"
+						:style="'height:'+clientHeight+'px;'">
 						<view class="mainView">
 							<view v-if="item.id===0&&activeIndex===0">
 								<HotNews />
@@ -181,7 +182,8 @@
 				this.changeActiveTopbar(e.detail.current)
 			},
 			// 刷新
-			onRefresh() {
+			onRefresh(item) {
+
 				this.isFlash = true;
 				if (this._flashing) return;
 				this._flashing = true;

@@ -3,7 +3,7 @@
 		<view class="contentBox">
 			<view class="topInfo">
 				<view class="topImg">
-					<u--image :showLoading="true" width="100%" height="370" src="../../static/images/geli.png">
+					<u--image :showLoading="true" width="100%" height="370" src="../../static/images/fangyi3.png">
 					</u--image>
 				</view>
 				<view class="topText">
@@ -466,7 +466,7 @@
 				z-index: 999;
 				font-size: 60rpx;
 				transform: translate(-50%, -50%);
-				background: linear-gradient(to bottom, #ffffff, #ffffff, #4fa2f0, #55aaff);
+				background: linear-gradient(to bottom, #ffffff, #53afff, #f0e9ef, #55aaff);
 				color: transparent;
 				background-clip: text;
 			}

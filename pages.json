@@ -92,6 +92,54 @@
 				"navigationStyle": "custom"
 			}
 
+		}, {
+			"path": "pages/funNews_movieTv/funNews_movieTv",
+			"style": {
+				"navigationBarTitleText": "影视热线",
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/funNews_TVshow/funNews_TVshow",
+			"style": {
+				"navigationBarTitleText": "热播剧场",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/funNews_Music/funNews_Music",
+			"style": {
+				"navigationBarTitleText": "音娱天地",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/sport_NBA/sport_NBA",
+			"style": {
+				"navigationBarTitleText": "NBA",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/sport_FootBall/sport_FootBall",
+			"style": {
+				"navigationBarTitleText": "足球",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
+		}, {
+			"path": "pages/sport_Run/sport_Run",
+			"style": {
+				"navigationBarTitleText": "跑步",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+			}
+
 		}
 	],
 	"globalStyle": {

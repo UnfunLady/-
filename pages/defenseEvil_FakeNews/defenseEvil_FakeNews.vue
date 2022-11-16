@@ -2,7 +2,7 @@
 	<view>
 		<view class="content">
 			<view class="topImg">
-				<u--image :showLoading="true" width="100%" height="370" src="../../static/images/fakenews.png">
+				<u--image :showLoading="true" width="100%" height="370" src="../../static/images/piyao1.png">
 				</u--image>
 				<view class="searchInput">
 					<view class="searchIcon">
@@ -124,10 +124,9 @@
 		.searchInput {
 			width: 70%;
 			height: 80rpx;
-			border-radius: 10rpx;
+			border-radius: 50rpx;
 			align-items: center;
 			display: flex;
-
 			opacity: .9;
 			margin-left: -30rpx;
 			position: absolute;
@@ -135,6 +134,7 @@
 			left: 0;
 			margin: 0 auto;
 			right: 0;
+			background: #fff;
 
 			.searchIcon {
 				color: #dedede;
