@@ -31,7 +31,7 @@
 									</view>
 									<view class=" repry wtext videoPlayCount"
 										v-if="card.type==='video'&&card.videoInfo">
-										{{tansformNumber(card.videoInfo.playCount)+'次观看'}}
+										{{card.videoInfo.playCount?tansformNumber(card.videoInfo.playCount)+'次观看':tansformNumber(card.commentCount)+'回复'}}
 									</view>
 									<view class="repry wtext" v-else>
 										{{card.replyCount?tansformNumber(card.replyCount):tansformNumber(card.commentCount)}}回复

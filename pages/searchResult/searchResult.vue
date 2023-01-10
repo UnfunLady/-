@@ -99,7 +99,7 @@
 	.content {
 		background-color: #eef1f4;
 		min-height: calc(100vh - (105rpx));
-		padding-top: 20rpx;
+		padding-top: 30rpx;
 	}
 
 	.empty {

@@ -95,9 +95,9 @@
 					</view>
 
 					<view class="bottomInfo">
-						<text> 数据来源：当地卫健委和权威网站 </text>
-						<span style="display: flex;">发布时间：<u--text color="#c52c3c" :text="outDataList.timestamp"
-								mode="date">
+						<text style="font-size: 26rpx;"> 数据来源：当地卫健委和权威网站 </text>
+						<span style="display: flex;font-size: 24rpx;margin-top: 10rpx;">发布时间：<u--text color="#c52c3c"
+								:text="outDataList.timestamp" mode="date">
 							</u--text></span>
 					</view>
 				</view>
@@ -246,7 +246,6 @@
 					return citys
 				})
 				const rightData = res.data.items.map((city) => {
-
 					return city
 				})
 				this.selectArrayByIp = res.data.items;
@@ -271,7 +270,7 @@
 				} = e
 				// 当第一列值发生变化时，变化第二列(后一列)对应的选项
 				if (columnIndex === 0) {
-					// 	// picker为选择器this实例，变化第二列对应的选项
+					// 	 picker为选择器this实例，变化第二列对应的选项
 					picker.setColumnValues(1, JSON.parse(JSON.stringify(this.columnData))[0][index].list)
 				}
 			},
@@ -284,7 +283,6 @@
 						this.searchInfoByName(e.value[e.value.length - 1].id, 'Form')
 						this.formRightData = e.values[1]
 						this.formLeftData = e.indexs
-						console.log(this.formLeftData, this.formRightData)
 						break;
 					case 'To':
 						this.toText = e.value[e.value.length - 1].name
@@ -344,8 +342,6 @@
 					this.selectArrayByIp.some((city, index) => {
 						return city.list.some((ccity, cindex) => {
 							if (ccity.id === cityId) {
-								console.log(ccity, city);
-								console.log(index, cindex);
 								// index就是省级的下标 cindex就是ip地址所对应的下标 
 								// 再把city的list赋值给rightData 下标整合数组给leftData
 								this.formLeftData = [index, cindex];

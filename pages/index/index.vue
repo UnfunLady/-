@@ -1,54 +1,60 @@
 <template>
 	<view class="container">
 		<BackTop :backTop="backTop" :isShowBackTop="isShowBackTop" />
-		<Navbar :hotKeyList="hotKeyList" />
-		<view class="header">
-			<scroll-view scroll-x="true" class="scrollX" :scroll-into-view="tabCurrent">
-				<view @tap.stop="changeActiveTopbar(item.id)" v-for="(item) in topBarList" :id="'top'+item.id"
-					:key="item.id" class="scroll-view-item">
-					<text :class="activeIndex===item.id?'scroll-active':''"> {{item.title}}</text>
-				</view>
-			</scroll-view>
-			<!-- 内容 -->
-			<swiper class="swiper-box-list" :style="'height:'+clientHeight+'px;'" :current="activeIndex"
-				@change.stop="swiperChange">
-				<swiper-item class="swiper-topic-list" v-for="item in topBarList" :key="item.id">
-					<scroll-view :scroll-top="scrollTop" @scroll="scroll" @scrolltolower="reachBottom"
-						@refresherrefresh.stop="onRefresh(item)" refresher-enabled="false"
-						:refresher-triggered="isFlash" refresher-background="#f5f5f5" scroll-y="true"
-						:style="'height:'+clientHeight+'px;'">
-						<view class="mainView">
-							<view v-if="item.id===0&&activeIndex===0">
-								<HotNews />
+		<view class="" v-show="tabFlag==='首页'">
+			<Navbar :hotKeyList="hotKeyList" />
+			<view class="header">
+				<scroll-view scroll-x="true" class="scrollX" :scroll-into-view="tabCurrent">
+					<view @tap.stop="changeActiveTopbar(item.id)" v-for="(item) in topBarList" :id="'top'+item.id"
+						:key="item.id" class="scroll-view-item">
+						<text :class="activeIndex===item.id?'scroll-active':''"> {{item.title}}</text>
+					</view>
+				</scroll-view>
+				<!-- 内容 -->
+				<swiper class="swiper-box-list" :style="'height:'+clientHeight+'px;'" :current="activeIndex"
+					@change.stop="swiperChange">
+					<swiper-item class="swiper-topic-list" v-for="item in topBarList" :key="item.id">
+						<scroll-view :scroll-top="scrollTop" @scroll="scroll" @scrolltolower="reachBottom"
+							@refresherrefresh.stop="onRefresh(item)" refresher-enabled="false"
+							:refresher-triggered="isFlash" refresher-background="#f5f5f5" scroll-y="true"
+							:style="'height:'+clientHeight+'px;'">
+							<view class="mainView">
+								<view v-if="item.id===0&&activeIndex===0">
+									<HotNews />
+								</view>
+								<view v-if="item.id===1&&activeIndex===1">
+									<HotPoiont />
+								</view>
+								<view v-if="item.id===2&&activeIndex===2">
+									<GuangZhou />
+								</view>
+								<view v-if="item.id===3&&activeIndex===3">
+									<DefenseEvil />
+								</view>
+								<view v-if="item.id===4&&activeIndex===4">
+									<FunNews />
+								</view>
+								<view v-if="item.id===5&&activeIndex===5">
+									<Sport />
+								</view>
+								<view v-if="item.id===6&&activeIndex===6">
+									<Finance />
+								</view>
+								<view v-if="item.id===7&&activeIndex===7">
+									<WarNews />
+								</view>
+								<BottomIcon :isLoading="isLoading" v-if="(item.id!==6&&item.id!==7)" />
 							</view>
-							<view v-if="item.id===1&&activeIndex===1">
-								<HotPoiont />
-							</view>
-							<view v-if="item.id===2&&activeIndex===2">
-								<GuangZhou />
-							</view>
-							<view v-if="item.id===3&&activeIndex===3">
-								<DefenseEvil />
-							</view>
-							<view v-if="item.id===4&&activeIndex===4">
-								<FunNews />
-							</view>
-							<view v-if="item.id===5&&activeIndex===5">
-								<Sport />
-							</view>
-							<view v-if="item.id===6&&activeIndex===6">
-								<Finance />
-							</view>
-							<view v-if="item.id===7&&activeIndex===7">
-								<WarNews />
-							</view>
-							<BottomIcon :isLoading="isLoading" v-if="(item.id!==6&&item.id!==7)" />
-						</view>
-					</scroll-view>
-				</swiper-item>
-			</swiper>
-			<Tabbar />
+						</scroll-view>
+					</swiper-item>
+				</swiper>
+			</view>
 		</view>
+
+		<view class="videoPage" v-if="tabFlag==='视频'">
+			<Video />
+		</view>
+		<Tabbar @changtab="changtab" />
 	</view>
 </template>
 
@@ -65,6 +71,7 @@
 	import Finance from '@/pages/finance/finance.vue'
 	import WarNews from '@/pages/warNews/warNews.vue'
 	import BackTop from '@/components/backTop/backTop.vue'
+	import Video from '../video/video.vue'
 	import {
 		eventBus
 	} from '../../common/utils/utils.js'
@@ -82,10 +89,12 @@
 			Sport,
 			Finance,
 			BottomIcon,
-			WarNews
+			WarNews,
+			Video
 		},
 		data() {
 			return {
+				tabFlag: '首页',
 				activeIndex: 0,
 				tabCurrent: 'top',
 				isFlash: false,
@@ -223,6 +232,9 @@
 				setTimeout(() => {
 					this.isLoading = false;
 				}, 2000)
+			},
+			changtab(text) {
+				this.tabFlag = text.text;
 			}
 		}
 	}

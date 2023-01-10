@@ -335,9 +335,7 @@
 							}
 						},
 						data: this.mapData.map((params) => {
-
 							if (params.value && params.value >= 1000) {
-
 								params.label = {
 									color: "#ff0004"
 								}

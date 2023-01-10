@@ -27,7 +27,7 @@
 			BackTop
 		},
 		mounted() {
-			this.getMovieTvData();
+			this.getData();
 		},
 		onReady() {
 			uni.getSystemInfo({

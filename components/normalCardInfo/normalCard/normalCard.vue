@@ -5,7 +5,6 @@
 				<view class="videoSourceInfo">
 					<view class="topInfo">
 						<view class="avatar">
-
 							<u--image :showLoading="true" shape="circle" :src="item.videoTopic.topic_icons"
 								width="60rpx" height="60rpx">
 							</u--image>
@@ -20,17 +19,18 @@
 						</view>
 					</view>
 					<view class="titleInfo">
-						<view class="titleText" style="margin-top: 10rpx;">
+						<view class="titleText" style="margin: 20rpx 0 10rpx; color: #585858;">
 							{{item.title}}
 						</view>
 					</view>
 					<view class="videoInfo">
 						<view class="videoCoverImage">
-
-							<img v-lazy="item.videoinfo.cover==''?item.videoinfo.firstFrameImg:item.videoinfo.cover"
-								alt="">
+							<!-- <img v-lazy="" alt=""> -->
+							<u--image width="100%" height="500" :showLoading="true" radius="8"
+								:src="item.videoinfo.cover==''?item.videoinfo.firstFrameImg:item.videoinfo.cover">
+							</u--image>
 							<view class="repryText">
-								<view class="">
+								<view class="" style="font-size:22rpx;">
 									<text>{{item.replyCount}}条回复</text>
 								</view>
 								<view class="repryConfig">
@@ -235,9 +235,10 @@
 				align-items: center;
 				padding-bottom: 20rpx;
 
+
 				div {
 					padding-left: 10rpx;
-					font-size: 24rpx;
+					font-size: 20rpx;
 					color: #b0bbb0;
 				}
 
@@ -250,20 +251,21 @@
 		}
 
 		.videoSourceInfo {
+
 			display: flex;
 			flex-direction: column;
 			border-bottom: 1px solid #f1f1f1;
 
 			.topInfo {
+
 				align-items: center;
 				display: flex;
-
-				.avatar {}
 
 				.nickname {
 					margin-left: 20rpx;
 					font-size: 28rpx;
 					font-weight: 600;
+
 				}
 
 				.iconV {
@@ -272,11 +274,11 @@
 			}
 
 			.videoCoverImage {
-
 				display: flex;
 				flex-direction: column;
 				position: relative;
 				opacity: .9;
+				margin: 20rpx 0 0rpx;
 
 				img: {
 					min-width: 100rpx;

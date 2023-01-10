@@ -60,8 +60,8 @@
 			async getData(num = 0) {
 				const res = await this.$API.funApi.getMusicInfo(num);
 				const data = JSON.parse(res.slice(res.indexOf('(') + 1, res.lastIndexOf(')')));
-				this.dataInfo = [...this.movieData, ...data.BD2AC4LMwangning];
-				this.swiperList = this.movieData.slice(0, 3);
+				this.dataInfo = [...this.dataInfo, ...data.BD2AC4LMwangning];
+				this.swiperList = this.dataInfo.slice(0, 3);
 				this.isLoading = false;
 			},
 			scroll(e) {

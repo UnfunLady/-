@@ -1,8 +1,8 @@
 <template>
 	<view class="tabbar">
-		<u-tabbar :value="current" activeColor="#8cadd0" :fixed="true" @change="name=>current=name" :placeholder="false"
+		<u-tabbar :value="current" activeColor="#8cadd0" :fixed="true" @change="change" :placeholder="false"
 			:safeAreaInsetBottom="false">
-			<u-tabbar-item :text="item.text" v-for="item in list" :key="item.id">
+			<u-tabbar-item :text="item.text" v-for="item in list" :key="item.id" @click="changeTab(item)">
 				<image class="u-page__item__slot-icon" slot="active-icon" :src="item.selectedIconPath">
 				</image>
 				<image class="u-page__item__slot-icon" slot="inactive-icon" :src="item.iconPath">
@@ -14,7 +14,11 @@
 
 <script>
 	export default {
-
+		props: {
+			changtab: {
+				type: Function
+			}
+		},
 		data() {
 			return {
 				current: 0,
@@ -24,7 +28,7 @@
 						selectedIconPath: "../../static/images/home-active.png",
 						text: '首页',
 						customIcon: false,
-						pagePath: "pages/index/index"
+						pagePath: "/pages/index/index"
 					},
 					{
 						id: 1,
@@ -32,7 +36,7 @@
 						selectedIconPath: "../../static/images/video-active.png",
 						text: '视频',
 						customIcon: false,
-						pagePath: "pages/index/index"
+						pagePath: "/pages/video/video"
 					},
 					{
 						id: 2,
@@ -40,7 +44,7 @@
 						selectedIconPath: "../../static/images/search-active.png",
 						text: '发现',
 						customIcon: false,
-						pagePath: "pages/index/index"
+						pagePath: "/pages/index/index"
 					},
 					{
 						id: 3,
@@ -48,13 +52,21 @@
 						selectedIconPath: "../../static/images/me-active.png",
 						text: '我的',
 						customIcon: false,
-						pagePath: "pages/index/index"
+						pagePath: "/pages/index/index"
 					},
 				]
 			};
 		},
 		mounted() {
-			
+
+		},
+		methods: {
+			changeTab(item) {
+				this.$emit("changtab", item)
+			},
+			change(name) {
+				this.current = name;
+			}
 		}
 	}
 </script>

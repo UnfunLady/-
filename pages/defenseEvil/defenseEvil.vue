@@ -8,7 +8,7 @@
 				</u-notice-bar>
 			</view>
 			<view class="topInfo">
-				<view class="topImg">
+				<view class="topImg" v-show="topImgInfo!={}">
 					<view class="mask">
 					</view>
 					<u--image :showLoading="true" shape="square" radius="10" width="100%" height="370"
@@ -19,7 +19,7 @@
 					</view>
 				</view>
 				<Actions :actionsList="actionsList" />
-				<view class="topNumbers" v-for="(item,index) in evilInfo" :key="index">
+<!-- 				<view class="topNumbers" v-for="(item,index) in evilInfo" :key="index">
 					<view class="topTitleInfo">
 						<view class="title">
 							{{item.epidemicInfo.title}}
@@ -57,7 +57,7 @@
 							</scroll-view>
 						</view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		<u-gap height="10" bgColor="#f9f9f9"></u-gap>
