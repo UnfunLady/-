@@ -32,7 +32,8 @@
 				clientHeight: 0,
 				scrollTop: 0,
 				isShowBackTop: false,
-				isRefresh: false
+				isRefresh: false,
+				refreshCount: 0
 			}
 		},
 
@@ -61,6 +62,7 @@
 					}
 				})
 			},
+
 			async getVideoFirstInfo() {
 				const res = await this.$API.videoApi.getVideosInfo()
 				if (res && res.视频) {
@@ -83,21 +85,45 @@
 				}
 			},
 			async getVideoMoreInfo() {
-				const res = await this.$API.videoApi.getVideosInfo()
-				this.isLoading = true;
-				if (res && res.视频) {
-					const newVideosList = res.视频;
-					this.videoList = this.videoList.concat(newVideosList);
-					this.isLoading = false;
+				this.refreshCount++;
+				if (this.refreshCount % 2 !== 0) {
+					const res = await this.$API.videoApi.getVideosInfo()
+					this.isLoading = true;
+					if (res && res.视频) {
+						const newVideosList = res.视频;
+						this.videoList = this.videoList.concat(newVideosList);
+						console.log(this.videoList);
+						this.isLoading = false;
+					} else {
+						this.$refs.uToast.show({
+							type: 'error',
+							icon: false,
+							title: '获取视频失败',
+							message: "获取视频失败",
+						})
+						this.isLoading = false;
+					}
 				} else {
-					this.$refs.uToast.show({
-						type: 'error',
-						icon: false,
-						title: '获取视频失败',
-						message: "获取视频失败",
-					})
-					this.isLoading = false;
+					this.isLoading = true;
+					const res = await this.$API.videoApi.getOldVideosInfo()
+					if (res) {
+						const data = JSON.parse(res.slice(res.indexOf('(') + 1, res.lastIndexOf(')')));
+						if (data.Video_Recom && data.Video_Recom.length > 0) {
+							this.videoList = this.videoList.concat(data.Video_Recom);
+							console.log(this.videoList);
+							this.isLoading = false;
+						} else {
+							this.$refs.uToast.show({
+								type: 'success',
+								icon: false,
+								title: '获取成功',
+								message: "获取视频失败",
+							})
+							this.isLoading = false;
+						}
+					}
 				}
+
 			},
 			reachBottom() {
 				this.getVideoMoreInfo()
@@ -114,9 +140,37 @@
 				this.scrollTop = 0;
 				this.isShowBackTop = false;
 			},
+			async getNewVideosInfo() {
+				this.isRefresh = true;
+				const res = await this.$API.videoApi.getOldVideosInfo()
+				if (res) {
+					const data = JSON.parse(res.slice(res.indexOf('(') + 1, res.lastIndexOf(')')));
+					if (data.Video_Recom && data.Video_Recom.length > 0) {
+						this.videoList = data.Video_Recom;
+						console.log(data.Video_Recom);
+						console.log(this.videoList);
+						this.$refs.uToast.show({
+							type: 'success',
+							icon: false,
+							title: '获取成功',
+							message: "为您获取最新视频",
+						})
+						this.isRefresh = false;
+					} else {
+						this.$refs.uToast.show({
+							type: 'success',
+							icon: false,
+							title: '获取成功',
+							message: "获取视频失败",
+						})
+						this.isLoading = false;
+					}
+				}
+			},
 			refresh() {
 				this.isRefresh = true;
-				this.getPageHeight()
+				// this.getPageHeight()
+				this.getNewVideosInfo()
 			}
 		}
 	}

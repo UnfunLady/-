@@ -27,7 +27,7 @@
 						{{item.tagList&&item.tagList.length>0?item.tagList[0].text:""}}
 					</view>
 					<view class="author">
-						{{item.videoTopic.tname}}
+						{{item.videoTopic?item.videoTopic.tname:item.topicName}}
 					</view>
 					<view class="repry">
 						{{item.replyCount?item.replyCount+"人回复":""}}
@@ -108,7 +108,7 @@
 					bottom: 30rpx;
 					color: #fff;
 					font-size: 24rpx;
-					
+
 					left: 4%;
 
 				}
@@ -136,7 +136,7 @@
 				display: flex;
 				flex-direction: column;
 				margin: 10px;
-				justify-content: start;
+			justify-content: flex-start;
 
 				.topTitle {}
 

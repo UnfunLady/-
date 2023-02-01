@@ -22,8 +22,4 @@
 		color: red !important;
 		font-style: normal;
 	}
-
-	// * {
-	// 	touch-action: none;
-	// }
 </style>

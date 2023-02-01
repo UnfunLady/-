@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="content">
+		<view class="content" :style="searchResultList.length>0?{backgroundColor:'#eef1f4'}:{backgroundColor:'#fff'}">
 			<scroll-view class="scroll-view_H" scroll-y="true" @scrolltolower="reachBottom"
 				:style="'height:'+clientHeight+'px;'" v-if="searchResultList.length>0">
 				<view>
@@ -15,7 +15,7 @@
 			</scroll-view>
 
 			<view class="empty" v-else>
-				<u-empty mode="list" icon="../../static/images/empty.svg" width="400" height="400" text="暂无搜索结果">
+				<u-empty mode="list" icon="../../static/images/empty1.svg" width="400" height="400" text="暂无搜索结果">
 				</u-empty>
 			</view>
 
@@ -97,7 +97,7 @@
 
 <style lang="scss" scoped>
 	.content {
-		background-color: #eef1f4;
+		// background-color: #eef1f4;
 		min-height: calc(100vh - (105rpx));
 		padding-top: 30rpx;
 	}

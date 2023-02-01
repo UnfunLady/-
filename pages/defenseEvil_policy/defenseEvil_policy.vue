@@ -526,7 +526,7 @@
 
 				.explainText {
 					display: flex;
-					justify-content: start;
+					justify-content: flex-start;
 				}
 			}
 		}
@@ -632,7 +632,7 @@
 				width: 95%;
 				display: flex;
 				align-items: center;
-				justify-content: start;
+			justify-content: flex-start;
 
 				.type {
 

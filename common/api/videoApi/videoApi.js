@@ -5,7 +5,16 @@ const getVideosInfo = () => {
 		method: "get",
 	})
 }
+const getOldVideosInfo = () => {
+	return http.request({
+		baseUrl: "/bb",
+		url: "/touch/nc/api/video/recommend/Video_Recom/0-20.do?callback=videoList",
+		method: "get",
+	})
+}
+
 
 export default {
-	getVideosInfo
+	getVideosInfo,
+	getOldVideosInfo,
 }

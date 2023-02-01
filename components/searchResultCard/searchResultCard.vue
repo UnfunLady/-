@@ -90,6 +90,7 @@
 		display: flex;
 		position: relative;
 		justify-content: space-around;
+
 		.leftBox {
 			display: flex;
 			flex-direction: column;

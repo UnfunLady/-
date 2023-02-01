@@ -19,7 +19,7 @@
 					</view>
 				</view>
 				<Actions :actionsList="actionsList" />
-<!-- 				<view class="topNumbers" v-for="(item,index) in evilInfo" :key="index">
+				<!-- 				<view class="topNumbers" v-for="(item,index) in evilInfo" :key="index">
 					<view class="topTitleInfo">
 						<view class="title">
 							{{item.epidemicInfo.title}}
@@ -50,7 +50,6 @@
 												<u-count-to color="red" :start-val="30" :end-val="evil.subNum"
 													:duration="3000" :useEasing="true"></u-count-to>
 											</span>
-
 										</view>
 									</view>
 								</view>
@@ -236,7 +235,7 @@
 							.mainContent {
 								display: flex;
 								flex-direction: column;
-								justify-content: start;
+								justify-content: flex-start;
 								margin: 20rpx;
 								text-align: center;
 								border-radius: 8rpx;

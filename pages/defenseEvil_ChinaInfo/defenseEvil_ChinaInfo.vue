@@ -36,7 +36,7 @@
 				</view>
 				<view class="bottomInfo">
 					<view class="title">
-						2022-11-12 09:13:09
+						{{firstLastUpdateTime}}
 					</view>
 					<div class="explain">
 						<text style="color: #bc1f00"> 数据来源:官方渠道公开数据</text>

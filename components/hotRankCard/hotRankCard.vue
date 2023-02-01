@@ -107,7 +107,7 @@
 			padding: 20rpx 0 20rpx 0;
 			display: flex;
 			width: 100%;
-			justify-content: start;
+			justify-content: flex-start;
 
 			.leftNumberBox {
 				font-size: 36rpx;
