@@ -1,6 +1,6 @@
 <template>
-	<view class="container">
-		<BackTop :backTop="backTop" :isShowBackTop="isShowBackTop" />
+ <view class="container"> 	
+	<BackTop :backTop="backTop" :isShowBackTop="isShowBackTop" />
 		<view class="" v-show="tabFlag==='首页'">
 			<Navbar :hotKeyList="hotKeyList" />
 			<view class="header">
@@ -56,6 +56,7 @@
 		</view>
 		<Tabbar @changtab="changtab" />
 	</view>
+	
 </template>
 
 <script>
@@ -158,7 +159,7 @@
 		},
 		mounted() {
 			this.getHotPoint();
-
+			console.log("run");
 		},
 		methods: {
 			scroll(e) {
