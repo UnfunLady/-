@@ -62,13 +62,13 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-
+	
 	}
 
 	.mask {
 		position: absolute;
 		width: 100%;
-		height: 485rpx;
+		height: 490rpx;
 		// background: linear-gradient(to right, #afc6df, #acacac);
 		background-color: #afc6df;
 
@@ -78,7 +78,7 @@
 
 	.header-top {
 		position: fixed;
-		top: 0;
+		top: 30rpx;
 		display: flex;
 		width: 100%;
 		height: 80rpx;
@@ -124,13 +124,13 @@
 			.swiperContentHotKey {
 				color: #999999;
 				width: 100%;
-
+				
 			}
 
 		}
 	}
 
-	.rightButton {
+	.rightButton { 
 		display: flex;
 		margin-left: 30rpx;
 		flex: 1;

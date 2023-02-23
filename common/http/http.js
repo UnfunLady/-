@@ -17,14 +17,22 @@ export default {
 		options.dataType = options.dataType || this.common.dataType;
 
 		return new Promise((res, rej) => {
+			uni.showLoading({
+				title: "加载数据中...",
+			})
 			uni.request({
 				...options,
 				success: (result) => {
+
 					if (result.statusCode != 200) {
 						return rej();
 					}
 					let data = result.data;
 					res(data);
+					uni.hideLoading()
+				},
+				complete: () => {
+					uni.hideLoading()
 				}
 			})
 		})

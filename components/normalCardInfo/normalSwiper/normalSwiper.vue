@@ -79,6 +79,9 @@
 </script>
 
 <style scoped lang="scss">
+.swiper{
+	height: 350rpx;
+}
 	.swiperContainer {
 		border-radius: 10rpx;
 		padding-top: 15rpx;
@@ -102,7 +105,7 @@
 				width: 100%;
 				display: inline-block;
 				padding: 0 10rpx 0 10rpx;
-
+				
 				img {
 					border-radius: 20rpx !important;
 				}
@@ -146,9 +149,9 @@
 				position: absolute;
 				width: 100%;
 				z-index: 999;
-				bottom: 3%;
+				
 				color: white;
-
+				bottom: 60rpx;
 				.title {
 					font-size: 28rpx;
 					font-weight: 600 !important;

@@ -248,7 +248,7 @@
 
 	.header {
 		position: fixed;
-		top: 140rpx;
+		top: 150rpx;
 		// 父盒子必须有宽度才能横向滑动
 		width: 100%;
 

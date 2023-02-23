@@ -379,7 +379,7 @@
 			margin: -100rpx auto;
 			border-radius: 6rpx;
 			padding-top: 10rpx;
-			box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+			box-shadow: 0 0 20px #b9b9b9;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -433,8 +433,7 @@
 			position: relative;
 			margin: 140rpx auto;
 			border-radius: 15rpx !important;
-
-			box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+			box-shadow: 0 0 20px #b9b9b9;
 			overflow: hidden;
 
 			.carTabs {
