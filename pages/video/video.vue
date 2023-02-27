@@ -69,7 +69,7 @@
 					this.videoList = res.视频
 					this.$refs.uToast.show({
 						type: 'success',
-						icon: false,
+						icon: "success",
 						title: '获取成功',
 						message: this.videoList[0].prompt ? this.videoList[0].prompt : "为您获取最新视频",
 					})
@@ -151,16 +151,15 @@
 						console.log(this.videoList);
 						this.$refs.uToast.show({
 							type: 'success',
-							icon: false,
+							icon: "success",
 							title: '获取成功',
 							message: "为您获取最新视频",
 						})
 						this.isRefresh = false;
 					} else {
 						this.$refs.uToast.show({
-							type: 'success',
-							icon: false,
-							title: '获取成功',
+							type: 'error',
+							title: '获取失败',
 							message: "获取视频失败",
 						})
 						this.isLoading = false;

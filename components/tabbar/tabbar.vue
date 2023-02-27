@@ -44,7 +44,7 @@
 						selectedIconPath: "../../static/images/search-active.png",
 						text: '发现',
 						customIcon: false,
-						pagePath: "/pages/index/index"
+						pagePath: "/pages/findView/findView"
 					},
 					{
 						id: 3,
@@ -52,7 +52,7 @@
 						selectedIconPath: "../../static/images/me-active.png",
 						text: '我的',
 						customIcon: false,
-						pagePath: "/pages/index/index"
+						pagePath: "/pages/MyView/MyView"
 					},
 				]
 			};

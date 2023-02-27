@@ -1,6 +1,6 @@
 <template>
- <view class="container"> 	
-	<BackTop :backTop="backTop" :isShowBackTop="isShowBackTop" />
+	<view class="container">
+		<BackTop :backTop="backTop" :isShowBackTop="isShowBackTop" />
 		<view class="" v-show="tabFlag==='首页'">
 			<Navbar :hotKeyList="hotKeyList" />
 			<view class="header">
@@ -54,9 +54,19 @@
 		<view class="videoPage" v-if="tabFlag==='视频'">
 			<Video />
 		</view>
+
+		<view class="videoPage" v-if="tabFlag==='我的'">
+			<My />
+		</view>
+		<view class="videoPage" v-if="tabFlag==='发现'">
+			<FindView />
+		</view>
+
+
+
 		<Tabbar @changtab="changtab" />
 	</view>
-	
+
 </template>
 
 <script>
@@ -73,6 +83,8 @@
 	import WarNews from '@/pages/warNews/warNews.vue'
 	import BackTop from '@/components/backTop/backTop.vue'
 	import Video from '../video/video.vue'
+	import My from '@/pages/MyView/MyView.vue'
+	import FindView from "@/pages/findView/findView.vue"
 	import {
 		eventBus
 	} from '../../common/utils/utils.js'
@@ -91,7 +103,9 @@
 			Finance,
 			BottomIcon,
 			WarNews,
-			Video
+			Video,
+			My,
+			FindView
 		},
 		data() {
 			return {
@@ -159,7 +173,6 @@
 		},
 		mounted() {
 			this.getHotPoint();
-			console.log("run");
 		},
 		methods: {
 			scroll(e) {

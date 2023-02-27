@@ -156,7 +156,25 @@
 			}
 
 		}
-	]
+	    ,{
+            "path" : "pages/MyView/MyView",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/findView/findView",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ]
 
 
 }
