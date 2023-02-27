@@ -1,2 +1,5 @@
-# uniTest
-学习uni-app后个人 练习的一个新闻类App项目
+### 操作步骤
+  1. `git clone本项目`
+  2. `npm install` 安装所需依赖
+  3. 使用HbuilderX 打开项目运行即可
+
