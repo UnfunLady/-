@@ -1,5 +1,7 @@
 <template>
+	
 	<view class="content">
+		
 		<view class="mask">
 		</view>
 		<view class="header-top">
@@ -69,8 +71,8 @@
 		position: absolute;
 		width: 100%;
 		height: 490rpx;
-		// background: linear-gradient(to right, #afc6df, #acacac);
-		background-color: #afc6df;
+		// background: linear-gradient(to bottom, #afc6df 70%, #ffffff);
+		background-color: #aec5dd;
 
 		z-index: -999;
 

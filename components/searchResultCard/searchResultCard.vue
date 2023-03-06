@@ -28,7 +28,7 @@
 					<u--image :showLoading="true" src="../../static/images/play.png" width="40rpx" height="40rpx">
 					</u--image>
 				</view>
-				<u--image v-for="(img,index) in card.imgurl" :key="index" :showLoading="true" :src="img" width="215rpx"
+				<u--image v-for="(img,ix) in card.imgurl" :key="ix" :showLoading="true" :src="img" width="215rpx"
 					height="170rpx" radius="8">
 				</u--image>
 			</view>
@@ -117,6 +117,7 @@
 				}
 
 				.title {
+
 					/* 1.溢出隐藏 */
 					overflow: hidden;
 					/* 2.用省略号来代替超出文本 */
@@ -129,7 +130,7 @@
 					word-break: break-all;
 					/* 6.盒子实现多行显示的必要条件，文字是垂直展示，即文字是多行展示的情况下使用 */
 					-webkit-box-orient: vertical;
-					padding-bottom: 20px;
+
 				}
 			}
 
